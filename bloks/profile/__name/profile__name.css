@@ -7,3 +7,11 @@
   margin-top: 22px;
   margin-bottom: 16px;
 }
+
+@media screen and (max-width: 910px) {
+  .profile__name {
+    font-weight: 500;
+    font-size: 27px;
+    line-height: 33px;
+  }
+}

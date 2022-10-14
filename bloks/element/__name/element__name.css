@@ -1,18 +1,14 @@
 .element__name {
-  margin: 0 0 0 21px;
+  margin: 0;
   font-weight: 900;
   font-size: 24px;
   line-height: 29px;
   max-width: 224px;
+  min-height: 29px;
   width: 100%;
-  display: flex;
   /*многоточие*/
   white-space: nowrap;
-  overflow: hidden;
+  overflow-x: hidden;
   text-overflow: ellipsis;
-
-
-  justify-content: space-between;
   align-items: center;
-  max-height: 23px;
 }
