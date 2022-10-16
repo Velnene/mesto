@@ -33,8 +33,6 @@ function formSubmitHandler(evt) {
   userProfission.textContent = jobInput.value;
   closePopup();
   //nameInput.value = userName.textContent;
- // jobInput.value = userProfission.textContent;
-}
 
 // Прикрепляем обработчик к форме:
 // он будет следить за событием “submit” - «отправка»

@@ -7,3 +7,7 @@
   align-self: center;
   justify-self: center;
 }
+
+.element__like:active {
+background-image: url('../../../images/activeLike.svg');
+}
