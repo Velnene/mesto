@@ -11,10 +11,12 @@
 
 @media screen and (max-width: 910px) {
   .profile__profile-info {
-    margin-top: 26px;
+    max-width: 217px;
     grid-template-columns: 189px 18px;
     grid-template-rows: 33px 14px;
     row-gap: 14px;
     column-gap: 10px;
+    margin: 26px auto;
+    text-align: center;
   }
 }

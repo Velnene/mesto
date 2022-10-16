@@ -12,13 +12,11 @@
 @media screen and (max-width: 910px) {
   .elements {
     max-width: 581px;
-    width: 100%;
   }
 }
 
 @media screen and (max-width: 630px) {
   .elements {
     max-width: 282px;
-width: 100%;
   }
 }

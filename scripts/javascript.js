@@ -19,10 +19,10 @@ const closePopupOnClickOverlay = function (event) {
 popupOpenButtonElement.addEventListener('click', openPopup);
 popupCloseButtonElement.addEventListener('click', closePopup);
 popupElement.addEventListener('click', closePopupOnClickOverlay);
-const popupSubmitElement = document.querySelector('.popup__conteiner');
+const popupSubmitElement = document.querySelector('.popup__container');
 
 /*сохранение*/
-let formElement = document.querySelector('.profile');
+const formElement = document.querySelector('.profile');
 let nameInput = document.querySelector('.popup__input-name');
 let jobInput = document.querySelector('.popup__input-profession');
 let userName = formElement.querySelector('.profile__name');
@@ -32,7 +32,6 @@ function formSubmitHandler(evt) {
   userName.textContent = nameInput.value;
   userProfission.textContent = jobInput.value;
   closePopup();
-  //nameInput.value = userName.textContent;
 }
 // Прикрепляем обработчик к форме:
 // он будет следить за событием “submit” - «отправка»
