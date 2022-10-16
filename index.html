@@ -19,8 +19,8 @@
         <div class="profile__content">
           <img class="profile__avatar" src="./images/Avatar.svg" alt="аватарка">
           <div class="profile__profile-info">
-            <p class="profile__name">Жак-Ив Кусто<button class="profile__edit-button" type="button"
-                title="Редактировать профиль"></button></p>
+            <p class="profile__name">Жак-Ив Кусто</p>
+            <button class="profile__edit-button" type="button" title="Редактировать профиль"></button>
             <p class="profile__profession">Исследователь океана</p>
           </div>
         </div>
@@ -31,42 +31,42 @@
           <img class="element__image" src="./images/Karachaevsk.jpg" alt="Карачаевск">
           <div class="element__footer">
             <p class="element__name">Карачаевск</p>
-            <img class="element__like" src="./images/like.svg">
+            <img class="element__like" src="./images/like.svg" alt="лайк">
           </div>
         </div>
         <div class="element">
           <img class="element__image" src="./images/Elbrus.jpg" alt="Гора Эльбрус">
           <div class="element__footer">
             <p class="element__name">Гора Эльбрус</p>
-            <img class="element__like" src="./images/like.svg">
+            <img class="element__like" src="./images/like.svg" alt="лайк">
           </div>
         </div>
         <div class="element">
           <img class="element__image" src="./images/dombay.jpg" alt="Домбай">
           <div class="element__footer">
             <p class="element__name">Домбай</p>
-            <img class="element__like" src="./images/like.svg">
+            <img class="element__like" src="./images/like.svg" alt="лайк">
           </div>
         </div>
         <div class="element">
           <img class="element__image" src="./images/Elbrus.jpg" alt="Гора Эльбрус">
           <div class="element__footer">
             <p class="element__name">Гора Эльбрус</p>
-            <img class="element__like" src="./images/like.svg">
+            <img class="element__like" src="./images/like.svg" alt="лайк">
           </div>
         </div>
         <div class="element">
           <img class="element__image" src="./images/dombay.jpg" alt="Домбай">
           <div class="element__footer">
             <p class="element__name">Домбай</p>
-            <img class="element__like" src="./images/like.svg">
+            <img class="element__like" src="./images/like.svg" alt="лайк">
           </div>
         </div>
         <div class="element">
           <img class="element__image" src="./images/Karachaevsk.jpg" alt="Rарачаево-Черкесия">
           <div class="element__footer">
             <p class="element__name">Карачаево-Черкесия</p>
-            <img src="./images/like.svg" class="element__like">
+            <img src="./images/like.svg" class="element__like" alt="лайк">
           </div>
         </div>
       </section>
@@ -75,32 +75,18 @@
       <p class="footer__copyright">&copy; 2020 Mesto Russia</p>
     </footer>
     <section class="popup">
-      <div class="popup__conteiner">
+      <form class="popup__conteiner">
         <button class="popup__button-close"></button>
         <h3 class="popup__title">Редактировать профиль</h3>
         <label class="popup__label">
-          <input class="popup__input" type="name" placeholder="Имя" maxlength="30">
+          <input class="popup__input-name" type="text" maxlength="30">
         </label>
         <label class="popup__label">
-          <input class="popup__input" type="profession" placeholder="Профессия" maxlength="30">
+          <input class="popup__input-profession" type="text" maxlength="30">
         </label>
-        <button type="submit" class="popup__button" disabled="true">Сохранить</button>
-      </div>
-    </section>
-    <!--
-      <form name="profile" class="popup__form" novalidate="">
-        <fieldset class="popup__set">
-          <p class="popup__title">Редактировать профиль</p><label class="popup__form-field"><input name="name"
-              placeholder="Имя (только буквы)" required="" maxlength="40" class="popup__input" id="popup__name-input">
-            <span id="popup__name-input-error" class="popup__input-error"></span></label> <label
-            class="popup__form-field"><input name="job" placeholder="Профессия (только буквы)" required=""
-              maxlength="200" class="popup__input" id="popup__job-input"> <span id="popup__job-input-error"
-              class="popup__input-error"></span></label> <button type="submit"
-            class="popup__button popup__button_disabled" disabled="true">Сохранить</button>
-        </fieldset><button type="button" class="popup__close-button"></button>
+        <button type="submit" class="popup__button">Сохранить</button>
       </form>
-      <div class="popup__overlay"></div>
-    </div>-->
+    </section>
   </div>
   <script src="./scripts/javascript.js"></script>
 </body>
