@@ -16,7 +16,7 @@
     grid-template-rows: 33px 14px;
     row-gap: 14px;
     column-gap: 10px;
-    margin: 26px auto;
+    margin: 26px auto 0;
     text-align: center;
   }
 }
