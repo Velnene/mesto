@@ -67,8 +67,9 @@ const initialCards = [
     link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/baikal.jpg'
   }
 ];
+
+//Добавление карточки через js
 const cardsContainer = document.querySelector('.elements');
-console.log(cardsContainer);
 function addCard(nameCard, imageCard) {
   const cardTemplate = document.querySelector('#element-template').content;
   const cardElement = cardTemplate.querySelector('.element').cloneNode(true);
@@ -77,11 +78,7 @@ function addCard(nameCard, imageCard) {
   cardElement.querySelector('.element__image').src = imageCard;
   cardsContainer.append(cardElement);
 }
-
-
-addCard('Байкал', 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/baikal.jpg');
-addCard('Байкал', 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/baikal.jpg');
-addCard('Байкал', 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/baikal.jpg');
-addCard('Байкал', 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/baikal.jpg');
-addCard('Байкал', 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/baikal.jpg');
-addCard('Байкал', 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/baikal.jpg');
+//Сортировка массива
+initialCards.forEach(function (item) { 
+  addCard(item.name, item.link);
+});
