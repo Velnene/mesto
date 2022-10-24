@@ -26,8 +26,10 @@
         </div>
         <button class="profile__add-button" type="button"></button>
       </section>
-      <section class="elements">
-        <article class="element">
+<section class="elements">
+  <!--    <section class="elements">
+        <div class="cards-container"></div>
+         <article class="element">
           <img class="element__image" src="./images/Karachaevsk.jpg" alt="Карачаевск">
           <div class="element__footer">
             <p class="element__name">Карачаевск</p>
@@ -68,7 +70,7 @@
             <p class="element__name">Карачаево-Черкесия</p>
             <button class="element__like" type="button"></button>
           </div>
-        </article>
+        </article>-->
       </section>
     </main>
     <footer class="footer">
@@ -83,8 +85,17 @@
         <button type="submit" class="popup__button">Сохранить</button>
       </form>
     </section>
-  </div>
-  <script src="./scripts/javascript.js"></script>
+
+    <template id="element-template">
+      <article class="element">
+        <img class="element__image">
+        <div class="element__footer">
+          <p class="element__name"></p>
+          <button class="element__like" type="button"></button>
+        </div>
+      </article>
+    </template>
+    <script src="./scripts/javascript.js"></script>
 </body>
 
 </html>

@@ -3,4 +3,7 @@
   background-color: #000000;
   align-items: center;
   font-family: 'Inter', Arial, sans-serif;
+  -webkit-font-smooting: antialiased;
+  -webkit-text-size-adjust: 100%;
+  text-rendering: optimizeLegibility;
 }
