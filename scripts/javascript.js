@@ -91,12 +91,12 @@ initialCards.forEach(function (item) {
 const addCardsPopup = document.querySelector('.popup_card');
 const popupCardContainer = addCardsPopup.querySelector('.popup__container');
 const addCardsButton = document.querySelector('.profile__add-button');
-addCardsButton.addEventListener('click', function () { 
+addCardsButton.addEventListener('click', function () {
   addCardsPopup.classList.add('popup_opened');
 });
 // close popap
 const popupButtonCloseCard = addCardsPopup.querySelector('.popup__button-close');
-function closePopapCard() { 
+function closePopapCard() {
   addCardsPopup.classList.remove('popup_opened');
 }
 popupButtonCloseCard.addEventListener('click', closePopapCard);
@@ -114,7 +114,7 @@ addCardsPopup.addEventListener('click', closePopupOCardnClickOverlay);
 
 nameCard = addCardsPopup.querySelector('.popup__input-name');
 linkCard = addCardsPopup.querySelector('.popup__input-profession');
-  
+
 function formSubmitCard(evt) {
   evt.preventDefault();
   const name = nameCard.value;
@@ -123,3 +123,36 @@ function formSubmitCard(evt) {
   closePopapCard();
 }
 popupCardContainer.addEventListener('submit', formSubmitCard);
+
+
+
+
+//лак карточки
+
+const like = document.querySelector('.element__like');
+function likeActive() {
+  like.classList.toggle('element__like_active');
+}
+
+like.addEventListener('click', likeActive)
+// Для лайка использовать toggle
+
+// Присвоение класса элементу.Метод add
+// Метод add добавляет элементу класс:
+// // в королевский гараж поступил Ягуар
+// garage.classList.add('jaguar');
+
+// console.log(`Гараж Её Величества: ${garage.classList}`); // bentley rolls-royce jaguar
+// Удаление класса.Метод remove
+// Метод remove удаляет у элемента класс, переданный как аргумент:
+// garage.classList.remove('jaguar'); // Ягуар надоел
+
+// console.log(`Гараж Её Величества: ${garage.classList}`); // bentley rolls-royce
+// Переключение класса.Метод toggle
+// Метод toggle работает как add, если у элемента класс отсутствует, и как remove — если присутствует.То есть метод переключает класс у элемента:
+// <div class="bentley rolls-royce jaguar">Королевский гараж</div>
+// // А если Ягуар есть, нужно от него избавиться
+// garage.classList.toggle('jaguar');
+
+// console.log(`Гараж Её Величества: ${garage.classList}`); // bentley rolls-royce
+// //
