@@ -79,7 +79,7 @@ function addCard(nameCard, imageCard) {
 
   cardElement.querySelector('.element__name').textContent = nameCard;
   cardElement.querySelector('.element__image').src = imageCard;
-  cardsContainer.append(cardElement);
+  cardsContainer.prepend(cardElement);
 }
 //Сортировка массива
 initialCards.forEach(function (item) {
