@@ -26,63 +26,30 @@
         </div>
         <button class="profile__add-button" type="button"></button>
       </section>
-<section class="elements">
-  <!--    <section class="elements">
-        <div class="cards-container"></div>
-         <article class="element">
-          <img class="element__image" src="./images/Karachaevsk.jpg" alt="Карачаевск">
-          <div class="element__footer">
-            <p class="element__name">Карачаевск</p>
-            <button class="element__like" type="button"></button>
-          </div>
-        </article>
-        <article class="element">
-          <img class="element__image" src="./images/Elbrus.jpg" alt="Гора Эльбрус">
-          <div class="element__footer">
-            <p class="element__name">Гора Эльбрус</p>
-            <button class="element__like" type="button"></button>
-          </div>
-        </article>
-        <article class="element">
-          <img class="element__image" src="./images/dombay.jpg" alt="Домбай">
-          <div class="element__footer">
-            <p class="element__name">Домбай</p>
-            <button class="element__like" type="button"></button>
-          </div>
-        </article>
-        <article class="element">
-          <img class="element__image" src="./images/Elbrus.jpg" alt="Гора Эльбрус">
-          <div class="element__footer">
-            <p class="element__name">Гора Эльбрус</p>
-            <button class="element__like" type="button"></button>
-          </div>
-        </article>
-        <article class="element">
-          <img class="element__image" src="./images/dombay.jpg" alt="Домбай">
-          <div class="element__footer">
-            <p class="element__name">Домбай</p>
-            <button class="element__like" type="button"></button>
-          </div>
-        </article>
-        <article class="element">
-          <img class="element__image" src="./images/Karachaevsk.jpg" alt="Rарачаево-Черкесия">
-          <div class="element__footer">
-            <p class="element__name">Карачаево-Черкесия</p>
-            <button class="element__like" type="button"></button>
-          </div>
-        </article>-->
+      <section class="elements">
       </section>
     </main>
     <footer class="footer">
       <p class="footer__copyright">&copy; 2020 Mesto Russia</p>
     </footer>
-    <section class="popup">
+    <!--popup profile-->
+    <section class="popup popup_info">
       <form class="popup__container" name="profile-form">
         <button class="popup__button-close" type="button"></button>
         <h2 class="popup__title">Редактировать профиль</h2>
         <input class="popup__input-name" type="text" maxlength="30">
         <input class="popup__input-profession" type="text" maxlength="30">
         <button type="submit" class="popup__button">Сохранить</button>
+      </form>
+    </section>
+    <!--popup card-->
+    <section class="popup popup_card">
+      <form class="popup__container" name="add-card">
+        <button class="popup__button-close" type="button"></button>
+        <h2 class="popup__title">Новое место</h2>
+        <input class="popup__input-name" type="text" maxlength="30" placeholder="Название">
+        <input class="popup__input-profession" type="text" placeholder="Ссылка на картинку">
+        <button type="submit" class="popup__button">Создать</button>
       </form>
     </section>
 

@@ -1,4 +1,4 @@
-const popupElement = document.querySelector('.popup');
+const popupElement = document.querySelector('.popup_info');
 const popupOpenButtonElement = document.querySelector('.profile__edit-button');
 const popupCloseButtonElement = popupElement.querySelector('.popup__button-close');
 
@@ -68,17 +68,58 @@ const initialCards = [
   }
 ];
 
+
+
+
 //Добавление карточки через js
 const cardsContainer = document.querySelector('.elements');
 function addCard(nameCard, imageCard) {
   const cardTemplate = document.querySelector('#element-template').content;
   const cardElement = cardTemplate.querySelector('.element').cloneNode(true);
-  
+
   cardElement.querySelector('.element__name').textContent = nameCard;
   cardElement.querySelector('.element__image').src = imageCard;
   cardsContainer.append(cardElement);
 }
 //Сортировка массива
-initialCards.forEach(function (item) { 
+initialCards.forEach(function (item) {
   addCard(item.name, item.link);
 });
+
+
+//popup add cards
+const addCardsPopup = document.querySelector('.popup_card');
+const popupCardContainer = addCardsPopup.querySelector('.popup__container');
+const addCardsButton = document.querySelector('.profile__add-button');
+addCardsButton.addEventListener('click', function () { 
+  addCardsPopup.classList.add('popup_opened');
+});
+// close popap
+const popupButtonCloseCard = addCardsPopup.querySelector('.popup__button-close');
+function closePopapCard() { 
+  addCardsPopup.classList.remove('popup_opened');
+}
+popupButtonCloseCard.addEventListener('click', closePopapCard);
+
+const closePopupOCardnClickOverlay = function (event) {
+  if (event.target !== event.currentTarget) {
+    return
+  }
+  addCardsPopup.classList.remove('popup_opened');
+}
+//закрытие попапа при нажатии вне попапа 
+addCardsPopup.addEventListener('click', closePopupOCardnClickOverlay);
+
+//добавление карточки 
+
+nameCard = addCardsPopup.querySelector('.popup__input-name');
+linkCard = addCardsPopup.querySelector('.popup__input-profession');
+  
+function formSubmitCard(evt) {
+  evt.preventDefault();
+  const name = nameCard.value;
+  const link = linkCard.value;
+  addCard(name, link);
+  closePopapCard();
+}
+popupCardContainer.addEventListener('submit', formSubmitCard);
