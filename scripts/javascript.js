@@ -129,30 +129,13 @@ popupCardContainer.addEventListener('submit', formSubmitCard);
 
 //лак карточки
 
-const like = document.querySelector('.element__like');
-function likeActive() {
-  like.classList.toggle('element__like_active');
-}
+const like = document.querySelectorAll('.element__like');
+console.log(like);
 
-like.addEventListener('click', likeActive)
-// Для лайка использовать toggle
+like.forEach(item => { 
+  item.addEventListener('click', () => { 
+    item.classList.toggle('element__like_active');
+    console.log('click');
+  });
+})
 
-// Присвоение класса элементу.Метод add
-// Метод add добавляет элементу класс:
-// // в королевский гараж поступил Ягуар
-// garage.classList.add('jaguar');
-
-// console.log(`Гараж Её Величества: ${garage.classList}`); // bentley rolls-royce jaguar
-// Удаление класса.Метод remove
-// Метод remove удаляет у элемента класс, переданный как аргумент:
-// garage.classList.remove('jaguar'); // Ягуар надоел
-
-// console.log(`Гараж Её Величества: ${garage.classList}`); // bentley rolls-royce
-// Переключение класса.Метод toggle
-// Метод toggle работает как add, если у элемента класс отсутствует, и как remove — если присутствует.То есть метод переключает класс у элемента:
-// <div class="bentley rolls-royce jaguar">Королевский гараж</div>
-// // А если Ягуар есть, нужно от него избавиться
-// garage.classList.toggle('jaguar');
-
-// console.log(`Гараж Её Величества: ${garage.classList}`); // bentley rolls-royce
-// //
