@@ -39,7 +39,6 @@ popupSubmitElement.addEventListener('submit', formSubmitHandler);
 
 
 
-
 // Массив карточек 
 const initialCards = [
   {
@@ -120,6 +119,7 @@ function formSubmitCard(evt) {
   const name = nameCard.value;
   const link = linkCard.value;
   addCard(name, link);
+
   closePopapCard();
 }
 popupCardContainer.addEventListener('submit', formSubmitCard);
@@ -127,15 +127,13 @@ popupCardContainer.addEventListener('submit', formSubmitCard);
 
 
 
-//лак карточки
+//лайк карточки
 
 const like = document.querySelectorAll('.element__like');
-console.log(like);
-
-like.forEach(item => { 
-  item.addEventListener('click', () => { 
+like.forEach(item => {
+  item.addEventListener('click', () => {
     item.classList.toggle('element__like_active');
-    console.log('click');
   });
 })
+
 
