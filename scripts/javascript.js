@@ -78,6 +78,7 @@ function addCard(nameCard, imageCard) {
   cardElement.querySelector('.element__name').textContent = nameCard;
   cardElement.querySelector('.element__image').src = imageCard;
   cardElement.querySelector('.element__like').addEventListener('click', likeActive);
+  cardElement.querySelector('.element__remove').addEventListener('click', removeCard);
   cardsContainer.prepend(cardElement);
 }
 //Сортировка массива
@@ -124,10 +125,12 @@ function formSubmitCard(evt) {
 }
 popupCardContainer.addEventListener('submit', formSubmitCard);
 
-
-
-
 //лайк карточки
 function likeActive(evt) {
   evt.target.classList.toggle('element__like_active');
+}
+ 
+//функция удаления карточки 
+function removeCard(evt){
+  evt.target.closest('.element').remove();
  }

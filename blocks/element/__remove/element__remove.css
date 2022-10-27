@@ -8,6 +8,7 @@
   cursor: pointer;
   position: absolute;
   border: none;
+  background-size: contain;
 }
 .element__remove:hover{
   opacity: 0.6;;
