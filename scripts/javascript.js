@@ -75,9 +75,9 @@ const cardsContainer = document.querySelector('.elements');
 function addCard(nameCard, imageCard) {
   const cardTemplate = document.querySelector('#element-template').content;
   const cardElement = cardTemplate.querySelector('.element').cloneNode(true);
-
   cardElement.querySelector('.element__name').textContent = nameCard;
   cardElement.querySelector('.element__image').src = imageCard;
+  cardElement.querySelector('.element__like').addEventListener('click', likeActive);
   cardsContainer.prepend(cardElement);
 }
 //Сортировка массива
@@ -128,12 +128,6 @@ popupCardContainer.addEventListener('submit', formSubmitCard);
 
 
 //лайк карточки
-
-const like = document.querySelectorAll('.element__like');
-like.forEach(item => {
-  item.addEventListener('click', () => {
-    item.classList.toggle('element__like_active');
-  });
-})
-
-
+function likeActive(evt) {
+  evt.target.classList.toggle('element__like_active');
+ }
