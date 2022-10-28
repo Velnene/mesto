@@ -79,6 +79,7 @@ function addCard(nameCard, imageCard) {
   cardElement.querySelector('.element__image').src = imageCard;
   cardElement.querySelector('.element__like').addEventListener('click', likeActive);
   cardElement.querySelector('.element__remove').addEventListener('click', removeCard);
+  cardElement.querySelector('.element__image').addEventListener('click', addPopapImage);
   cardsContainer.prepend(cardElement);
 }
 //Сортировка массива
@@ -129,8 +130,27 @@ popupCardContainer.addEventListener('submit', formSubmitCard);
 function likeActive(evt) {
   evt.target.classList.toggle('element__like_active');
 }
- 
+
 //функция удаления карточки 
-function removeCard(evt){
+function removeCard(evt) {
   evt.target.closest('.element').remove();
- }
+}
+
+
+//открытие попапа с картинки 
+
+const popapOpenImage = document.querySelector('.popap__open-image');
+const popapImage = popapOpenImage.querySelector('.popap__image');
+const popapImageText = popapOpenImage.querySelector('popap__subtitle');
+const popupButtonCloseImage = document.querySelector('.popap__image-button-close');
+function popupCloseImage() {
+  popapOpenImage.classList.remove('popup_opened');
+}
+
+popupButtonCloseImage.addEventListener('click', popupCloseImage);
+
+function addPopapImage(evt) {
+  popapImage.src = evt.target.src;
+  console.log('click');
+  popapOpenImage.classList.add('popup_opened');
+}
