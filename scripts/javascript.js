@@ -59,7 +59,10 @@ const openPopupInfo = function (event) {
 //закрыть попап 
 function closePopup(evt){
   evt.classList.remove('popup_opened');
- }
+}
+function closePopupInfo() {
+  closePopup(popupElement);
+}
 //закрыть попап при нажании вне попапа
 const closePopupOnClickOverlay = function (event) {
   if (event.target !== event.currentTarget) {
@@ -69,7 +72,7 @@ const closePopupOnClickOverlay = function (event) {
 }
 //обработчик событий 
 popupOpenButtonElement.addEventListener('click', openPopupInfo);
-popupCloseButtonElement.addEventListener('click', closePopup);
+popupCloseButtonElement.addEventListener('click', closePopupInfo);
 popupElement.addEventListener('click', closePopupOnClickOverlay);
 //сохранить пользовательский ввод
 function formSubmitHandler(evt) {
