@@ -141,7 +141,7 @@ function removeCard(evt) {
 
 const popapOpenImage = document.querySelector('.popap__open-image');
 const popapImage = popapOpenImage.querySelector('.popap__image');
-const popapImageText = popapOpenImage.querySelector('popap__subtitle');
+const popapImageText = popapOpenImage.querySelector('.popap__subtitle');
 const popupButtonCloseImage = document.querySelector('.popap__image-button-close');
 function popupCloseImage() {
   popapOpenImage.classList.remove('popup_opened');
@@ -151,6 +151,6 @@ popupButtonCloseImage.addEventListener('click', popupCloseImage);
 
 function addPopapImage(evt) {
   popapImage.src = evt.target.src;
-  console.log('click');
+   popapImageText.textContent = evt.target.closest('.element').querySelector('.element__name').textContent;
   popapOpenImage.classList.add('popup_opened');
 }
