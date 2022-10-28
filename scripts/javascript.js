@@ -12,10 +12,13 @@ const popupImage = popupOpenImage.querySelector('.popup__image');
 const popupImageText = popupOpenImage.querySelector('.popup__subtitle');
 const popupButtonCloseImage = document.querySelector('.popup__image-button-close');
 const popupSubmitElement = document.querySelector('.popup__container');
+const popupButtonCloseCard = addCardsPopup.querySelector('.popup__button-close');
 let nameInput = document.querySelector('.popup__input-name');
 let jobInput = document.querySelector('.popup__input-profession');
 let userName = formElement.querySelector('.profile__name');
-let userProfission = formElement.querySelector('.profile__profession')
+let userProfission = formElement.querySelector('.profile__profession');
+let nameCard = addCardsPopup.querySelector('.popup__input-name');
+let linkCard = addCardsPopup.querySelector('.popup__input-profession');
 // Массив карточек 
 const initialCards = [
   {
@@ -43,26 +46,29 @@ const initialCards = [
     link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/baikal.jpg'
   }
 ];
-//фунции
-//открыть попап
-const openPopup = function (event) {
-  popupElement.classList.add('popup_opened');
+//фунции открыть попап
+function openPopup(evt) {
+  evt.classList.add('popup_opened');
+}
+//открыть попап инфо
+const openPopupInfo = function (event) {
+  openPopup(popupElement);
   nameInput.value = userName.textContent;
   jobInput.value = userProfission.textContent;
 }
 //закрыть попап 
-const closePopup = function (event) {
-  popupElement.classList.remove('popup_opened');
-}
+function closePopup(evt){
+  evt.classList.remove('popup_opened');
+ }
 //закрыть попап при нажании вне попапа
 const closePopupOnClickOverlay = function (event) {
   if (event.target !== event.currentTarget) {
     return
   }
-  closePopup();
+  closePopup(popupElement);
 }
 //обработчик событий 
-popupOpenButtonElement.addEventListener('click', openPopup);
+popupOpenButtonElement.addEventListener('click', openPopupInfo);
 popupCloseButtonElement.addEventListener('click', closePopup);
 popupElement.addEventListener('click', closePopupOnClickOverlay);
 //сохранить пользовательский ввод
@@ -70,7 +76,7 @@ function formSubmitHandler(evt) {
   evt.preventDefault();
   userName.textContent = nameInput.value;
   userProfission.textContent = jobInput.value;
-  closePopup();
+  closePopup(popupElement);
 }
 //обработчик событий для сохранения пользовательского ввода 
 popupSubmitElement.addEventListener('submit', formSubmitHandler);
@@ -91,12 +97,11 @@ initialCards.forEach(function (item) {
 });
 //обработчик событий добавление карточки 
 addCardsButton.addEventListener('click', function () {
-  addCardsPopup.classList.add('popup_opened');
+  openPopup(addCardsPopup);
 });
 // close popup
-const popupButtonCloseCard = addCardsPopup.querySelector('.popup__button-close');
 function closePopupCard() {
-  addCardsPopup.classList.remove('popup_opened');
+  closePopup(addCardsPopup);
 }
 popupButtonCloseCard.addEventListener('click', closePopupCard);
 // закрытие попапа при нажатии вне попапа 
@@ -104,19 +109,16 @@ const closePopupOCardnClickOverlay = function (event) {
   if (event.target !== event.currentTarget) {
     return
   }
-  addCardsPopup.classList.remove('popup_opened');
+  closePopup(addCardsPopup);
 }
 //закрытие попапа при нажатии вне попапа обработчик событий
 addCardsPopup.addEventListener('click', closePopupOCardnClickOverlay);
 //добавление карточки 
-nameCard = addCardsPopup.querySelector('.popup__input-name');
-linkCard = addCardsPopup.querySelector('.popup__input-profession');
 function formSubmitCard(evt) {
   evt.preventDefault();
   const name = nameCard.value;
   const link = linkCard.value;
   addCard(name, link);
-
   closePopupCard();
 }
 popupCardContainer.addEventListener('submit', formSubmitCard);
