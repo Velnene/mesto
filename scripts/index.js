@@ -61,11 +61,13 @@ popupSubmitElement.addEventListener('submit', formSubmitCardHandler);
 //Добавление карточки через js
 function addCard(cardData) {
   const cardElement = cardTemplate.querySelector('.element').cloneNode(true);
+  const elementImage = cardElement.querySelector('.element__image');
   cardElement.querySelector('.element__name').textContent = cardData.name;
-  cardElement.querySelector('.element__image').src = cardData.link;
+  elementImage.src = cardData.link;
+  elementImage.alt = cardData.name;
   cardElement.querySelector('.element__like').addEventListener('click', likeActive);
   cardElement.querySelector('.element__remove').addEventListener('click', removeCard);
-  cardElement.querySelector('.element__image').addEventListener('click', addPopupImage);
+  elementImage.addEventListener('click', addPopupImage);
   cardsContainer.prepend(cardElement);
 }
 //добавление карточек 
@@ -91,14 +93,14 @@ const closePopupOCardnClickOverlay = function (event) {
 //закрытие попапа при нажатии вне попапа обработчик событий
 popupCard.addEventListener('click', closePopupOCardnClickOverlay);
 //добавление карточки 
-function formSubmitCard(evt) {
+function handleLikeButton(evt) {
   evt.preventDefault();
   const name = nameCard.value;
   const link = linkCard.value;
   addCard(name, link);
   closePopupCard();
 }
-popupCardContainer.addEventListener('submit', formSubmitCard);
+popupCardContainer.addEventListener('submit', handleLikeButton);
 //лайк карточки
 function likeActive(evt) {
   evt.target.classList.toggle('element__like_active');
@@ -115,6 +117,8 @@ function popupCloseImage() {
 popupButtonCloseImage.addEventListener('click', popupCloseImage);
 function addPopupImage(evt) {
   popupImage.src = evt.target.src;
-  popupImageText.textContent = evt.target.closest('.element').querySelector('.element__name').textContent;
+  const nameCard = evt.target.closest('.element').querySelector('.element__name').textContent;
+  popupImage.alt = nameCard;
+  popupImageText.textContent = nameCard;
   openPopup(popupOpenImage);
 }
