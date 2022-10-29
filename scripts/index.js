@@ -59,7 +59,7 @@ function formSubmitCardHandler(evt) {
 //обработчик событий для сохранения пользовательского ввода 
 popupSubmitElement.addEventListener('submit', formSubmitCardHandler);
 //Добавление карточки через js
-function addCard(cardData) {
+function createCard(cardData) {
   const cardElement = cardTemplate.querySelector('.element').cloneNode(true);
   const elementImage = cardElement.querySelector('.element__image');
   cardElement.querySelector('.element__name').textContent = cardData.name;
@@ -68,8 +68,11 @@ function addCard(cardData) {
   cardElement.querySelector('.element__like').addEventListener('click', likeActive);
   cardElement.querySelector('.element__remove').addEventListener('click', removeCard);
   elementImage.addEventListener('click', addPopupImage);
-  cardsContainer.prepend(cardElement);
+  return cardElement;
 }
+function addCard(item) {
+  cardsContainer.prepend(createCard(item));
+ }
 //добавление карточек 
 initialCards.forEach(function (item) {
   addCard(item);
@@ -95,9 +98,11 @@ popupCard.addEventListener('click', closePopupOCardnClickOverlay);
 //добавление карточки 
 function handleLikeButton(evt) {
   evt.preventDefault();
-  const name = nameCard.value;
-  const link = linkCard.value;
-  addCard(name, link);
+  const card = {
+    name: nameCard.value,
+    link: linkCard.value
+  }
+  addCard(card)
   closePopupCard();
 }
 popupCardContainer.addEventListener('submit', handleLikeButton);
