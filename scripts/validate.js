@@ -1,7 +1,7 @@
 
 function checkInputValidity(inputElement) {
   const isValid = inputElement.validity.valid;
-  const popupContainer = inputElement.closest('.form__input');
+  const popupContainer = inputElement.closest('.form');
   const erorrElement = popupContainer.querySelector('.popup__input-erorr');
   if (isValid) {
     hideInputErorr(inputElement, erorrElement);
