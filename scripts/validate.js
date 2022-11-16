@@ -3,7 +3,6 @@ function checkInputValidity(inputElement) {
   const isValid = inputElement.validity.valid;
   const popupContainer = inputElement.closest('.form__input');
   const erorrElement = popupContainer.querySelector('.popup__input-erorr');
-  const inputElement = popupContainer.querySelector('.popup__input');
   if (isValid) {
     hideInputErorr(erorrElement);
   }
