@@ -11,20 +11,26 @@ function checkInputValidity(inputElement) {
   }
 }
 
+function enableButton(buttonElement) {
+  buttonElement.removeAttribute('disable');
+  buttonElement.classList.remove(selector.buttonInactive);
+};
+function disableButton(buttonElement) {
+  buttonElement.setAttribute('disable', true);
+  buttonElement.classList.add(selector.buttonInactive);
+};
+
 function toggleButtonState(inputList, buttonElement) {
   const hasInvalidInput = inputList.some(inputElement => !inputElement.validity.valid);
   if (hasInvalidInput) {
-    buttonElement.setAttribute('disable', true);
-    buttonElement.classList.add('popup__button_inactive');
+    disableButton(buttonElement);
   }
   else {
-    buttonElement.removeAttribute('disable');
-    buttonElement.classList.remove('popup__button_inactive');
+    enableButton(buttonElement);
   }
 }
 const setEventListeners = (formElement) => {
   formElement.addEventListener('submit', (evt) => {
-    evt.preventDefault();
   })
   const inputList = Array.from(formElement.querySelectorAll(selector.popupSelector));
   const submitButton = formElement.querySelector('.popup__button');
@@ -39,27 +45,33 @@ const setEventListeners = (formElement) => {
 
 function showInputErorr(inputElement,erorrElement, erorrMessage) {
   erorrElement.textContent = erorrMessage;
-  erorrElement.classList.add('.popup__input-erorr_active');
-  inputElement.classList.add('popup__input-inactive');
+  erorrElement.classList.add(selector.popupMessageErorr);
+  inputElement.classList.add(selector.popupInputInactive);
 };
 
 function hideInputErorr(inputElement,erorrElement) {
   erorrElement.textContent = '';
-  erorrElement.classList.remove('.popup__input-erorr_active');
-  inputElement.classList.remove('popup__input-inactive');
+  erorrElement.classList.remove(selector.popupMessageErorr);
+  inputElement.classList.remove(selector.popupInputInactive);
 };
 
 
 
-const enableValidation = () => {
-  const formList = document.querySelectorAll('.popup__container');
+const enableValidation = (selector) => {
+  const formList = document.querySelectorAll(selector.popupForm);
   formList.forEach(formElement => {
     setEventListeners(formElement);
   })
 }
 
 const selector = {
+  popupForm: '.popup__form',
   popupSelector: '.popup__input',
+  buttonInactive: 'popup__button_inactive',
+  popupMessageErorr: '.popup__input-erorr_active',
+  popupInputInactive: 'popup__input-inactive'
 }
+
+
 
 
