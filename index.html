@@ -37,8 +37,14 @@
       <form class="popup__container" name="profile-form">
         <button class="popup__button-close" type="button"></button>
         <h2 class="popup__title">Редактировать профиль</h2>
-        <input class="popup__input-name" type="text" maxlength="30" required>
-        <input class="popup__input-profession" type="text" maxlength="30" required>
+        <section class="form__input">
+          <input class="popup__input popup__input-name" type="text" minlength="2" maxlength="40"  required>
+          <span class="popup__input-erorr"></span>
+        </section>
+        <section class="form__input">
+          <input class="popup__input popup__input-profession" type="text" minlength="2" maxlength="200" required>
+          <span class="popup__input-erorr"></span>
+        </section>
         <button type="submit" class="popup__button">Сохранить</button>
       </form>
     </section>
@@ -47,8 +53,14 @@
       <form class="popup__container" name="add-card">
         <button class="popup__button-close" type="button"></button>
         <h2 class="popup__title">Новое место</h2>
-        <input class="popup__input-name" type="text" maxlength="30" placeholder="Название" required>
-        <input class="popup__input-profession" type="url" placeholder="Ссылка на картинку" required>
+        <section class="form__input">
+          <input class="popup__input popup__input-name" type="text" minlength="2" maxlength="30" placeholder="Название" required>
+          <span class="popup__input-erorr"></span>
+        </section>
+        <section class="form__input">
+          <input class="popup__input popup__input-profession" type="url" placeholder="Ссылка на картинку" required>
+          <span class="popup__input-erorr"></span>
+        </section>
         <button type="submit" class="popup__button">Создать</button>
       </form>
     </section>
@@ -72,7 +84,10 @@
       </article>
     </template>
     <script src="./scripts/cards.js"></script>
+    <script src="./scripts/validate.js"></script>
     <script src="./scripts/index.js"></script>
+
   </div>
 </body>
+
 </html>

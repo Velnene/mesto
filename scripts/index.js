@@ -23,6 +23,7 @@ const linkCard = popupCard.querySelector('.popup__input-profession');
 
 //фунции открыть попап
 function openPopup(popup) {
+  document.addEventListener('keydown', handleClosePopupClickEsc);
   popup.classList.add('popup_opened');
 }
 //открыть попап инфо
@@ -32,7 +33,8 @@ const openPopupInfo = function (event) {
   openPopup(popupProfileInfo);
 }
 //закрыть попап 
-function closePopup(popup){
+function closePopup(popup) {
+  document.removeEventListener('keydown', handleClosePopupClickEsc);
   popup.classList.remove('popup_opened');
 }
 function closePopupInfo() {
@@ -72,7 +74,7 @@ function createCard(cardData) {
 }
 function addCard(item) {
   cardsContainer.prepend(createCard(item));
- }
+}
 //добавление карточек 
 initialCards.forEach(function (item) {
   addCard(item);
@@ -87,14 +89,14 @@ function closePopupCard() {
 }
 popupButtonCloseCard.addEventListener('click', closePopupCard);
 // закрытие попапа при нажатии вне попапа 
-const closePopupOCardnClickOverlay = function (event) {
+const closePopupOnCardnClickOverlay = function (event) {
   if (event.target !== event.currentTarget) {
     return
   }
   closePopup(popupCard);
 }
 //закрытие попапа при нажатии вне попапа обработчик событий
-popupCard.addEventListener('click', closePopupOCardnClickOverlay);
+popupCard.addEventListener('click', closePopupOnCardnClickOverlay);
 //добавление карточки 
 function handleLikeButton(evt) {
   evt.preventDefault();
@@ -127,3 +129,22 @@ function addPopupImage(evt) {
   popupImageText.textContent = nameCard;
   openPopup(popupOpenImage);
 }
+// validity
+enableValidation(selector);
+
+//esc
+const handleClosePopupClickEsc = function (event) {
+  if (event.key === "Escape") {
+    const popupOpened = document.querySelector('.popup_opened');
+    closePopup(popupOpened);
+  }
+}
+// close popup image on click overlay
+const closePopupOnClickOverlay = function (event) {
+  if (event.target !== event.currentTarget) {
+    return
+  }
+  closePopup(popupOpenImage);
+}
+//закрытие попапа при нажатии вне попапа обработчик событий
+popupOpenImage.addEventListener('click', closePopupOnClickOverlay);
