@@ -4,10 +4,10 @@ function checkInputValidity(inputElement) {
   const popupContainer = inputElement.closest('.form__input');
   const erorrElement = popupContainer.querySelector('.popup__input-erorr');
   if (isValid) {
-    hideInputErorr(erorrElement);
+    hideInputErorr(inputElement, erorrElement);
   }
   else {
-    showInputErorr(erorrElement, inputElement.validationMessage);
+    showInputErorr(inputElement, erorrElement, inputElement.validationMessage);
   }
 }
 
@@ -37,14 +37,16 @@ const setEventListeners = (formElement) => {
   });
 }
 
-function showInputErorr(erorrElement, erorrMessage) {
+function showInputErorr(inputElement,erorrElement, erorrMessage) {
   erorrElement.textContent = erorrMessage;
   erorrElement.classList.add('.popup__input-erorr_active');
+  inputElement.classList.add('popup__input-inactive');
 };
 
-function hideInputErorr(erorrElement) {
+function hideInputErorr(inputElement,erorrElement) {
   erorrElement.textContent = '';
   erorrElement.classList.remove('.popup__input-erorr_active');
+  inputElement.classList.remove('popup__input-inactive');
 };
 
 
