@@ -5,7 +5,7 @@ const buttonCloseEditProfilePopup = popupProfileInfo.querySelector('.popup__butt
 const formProfile = document.querySelector('.profile');
 const cardsContainer = document.querySelector('.elements');
 const popupCard = document.querySelector('.popup_card');
-const popupForm = popupCard.querySelector('.popup__form');
+const popupCardForm = popupCard.querySelector('.popup__form');
 const buttonOpenNewCardPopup = document.querySelector('.profile__add-button');
 const popupOpenImage = document.querySelector('.popup_open-image');
 const popupImage = popupOpenImage.querySelector('.popup__image');
@@ -70,7 +70,7 @@ function createCard(cardData) {
   elementImage.alt = cardData.name;
   cardElement.querySelector('.element__like').addEventListener('click', handleLikeButton);
   cardElement.querySelector('.element__remove').addEventListener('click', removeCard);
-  elementImage.addEventListener('click', addPopupImage);
+  elementImage.addEventListener('click', openPopupImage);
   return cardElement;
 }
 function addCard(item) {
@@ -82,7 +82,7 @@ initialCards.forEach(function (item) {
 });
 //обработчик событий добавление карточки 
 buttonOpenNewCardPopup.addEventListener('click', function () {
-  popupCardButonSubmit.classList.add('popup__button_inactive');
+  disableButton(popupCardButonSubmit, config);
   openPopup(popupCard);
 });
 // close popup
@@ -93,17 +93,17 @@ popupButtonCloseCard.addEventListener('click', closePopupCard);
 //закрытие попапа при нажатии вне попапа обработчик событий
 popupCard.addEventListener('click', handleClosePopupOnClickOverlay);
 //добавление новой карточки 
-function handleaddCard(evt) {
+function handleAddCard(evt) {
   evt.preventDefault();
   const card = {
     name: nameCard.value,
     link: linkCard.value
   }
   addCard(card)
-  popupForm.reset();
+  popupCardForm.reset();
   closePopupCard();
 }
-popupForm.addEventListener('submit', handleaddCard);
+popupCardForm.addEventListener('submit', handleAddCard);
 //лайк карточки
 function handleLikeButton(evt) {
   evt.target.classList.toggle('element__like_active');
@@ -118,7 +118,7 @@ function popupCloseImage() {
 }
 //открытие попапа с картинки 
 popupButtonCloseImage.addEventListener('click', popupCloseImage);
-function addPopupImage(evt) {
+function openPopupImage(evt) {
   popupImage.src = evt.target.src;
   const nameCard = evt.target.closest('.element').querySelector('.element__name').textContent;
   popupImage.alt = nameCard;
@@ -126,7 +126,7 @@ function addPopupImage(evt) {
   openPopup(popupOpenImage);
 }
 // validity
-enableValidation(selector);
+enableValidation(config);
 
 //esc
 const handleClosePopupClickEsc = function (event) {
