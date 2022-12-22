@@ -74,7 +74,7 @@ popupSubmitElement.addEventListener('submit', handleProfileFormSubmit);
 
 //обработчик событий добавление карточки 
 buttonOpenNewCardPopup.addEventListener('click', function () {
-  validityCard.disableButton(popupCardButonSubmit);
+  cardFormValidator.disableButton(popupCardButonSubmit);
   openPopup(popupCard);
 });
 

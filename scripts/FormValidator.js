@@ -27,7 +27,7 @@ export class FormValidator {
     }
   }
 
-  _showInputError(inputElement, errorMessage) {
+  _showInputError(inputElement,  errorMessage) {
     const errorElement = this._formElement.querySelector('.popup__input-error');
     inputElement.classList.add(this._config.popupInputInactive);
     errorElement.textContent = errorMessage;
