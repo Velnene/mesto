@@ -51,15 +51,6 @@ class Card {
     this._newCard.remove();
   }
 
-  _handleOpenPopapImage() { 
-    this._elementImage.src = this._link;
-    const nameCard = this._newCard.closest('.element').querySelector('.element__name').textContent;
-    this._elementImage.alt = nameCard;
-    const popupImageText = popupOpenImage.querySelector('.popup__subtitle');
-    const popupOpenImage = document.querySelector('.popup_open-image');
-    popupImageText.textContent = nameCard;
-    openPopup(popupOpenImage);
-  }
 
   _setEventListener() {
     this._newCard.querySelector('.element__like').addEventListener('click', () => { this._handleLikeButton() });

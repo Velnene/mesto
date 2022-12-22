@@ -1,5 +1,6 @@
 //переменные
 const popupProfileInfo = document.querySelector('.popup_info');
+const popupProfileForm = popupProfileInfo.querySelector('.popup__form');
 const buttonOpenEditProfilePopup = document.querySelector('.profile__edit-button');
 const buttonCloseEditProfilePopup = popupProfileInfo.querySelector('.popup__button-close');
 const formProfile = document.querySelector('.profile');
@@ -64,7 +65,7 @@ popupSubmitElement.addEventListener('submit', formSubmitProfiledHandler);
 
 //обработчик событий добавление карточки 
 buttonOpenNewCardPopup.addEventListener('click', function () {
-  disableButton(popupCardButonSubmit, config);
+  validityCard._disableButton(popupCardButonSubmit);
   openPopup(popupCard);
 });
 // close popup
@@ -102,7 +103,10 @@ function openPopupImage(evt) {
   openPopup(popupOpenImage);
 }
 // validity
-enableValidation(config);
+const validityCard = new FormValidator(config, popupCardForm);
+const validityProfile = new FormValidator(config, popupProfileForm);
+validityCard.enableValidation(); 
+validityProfile.enableValidation(); 
 
 //esc
 const handleClosePopupClickEsc = function (event) {
