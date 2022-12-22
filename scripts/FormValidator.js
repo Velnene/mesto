@@ -20,15 +20,14 @@ export class FormValidator {
     const popupContainer = inputElement.closest(this._config.form);
     const errorElement = popupContainer.querySelector(this._config.popupInputError);
     if (this._isValid) {
-      this._hideInputError(inputElement, errorElement, this._config);
+      this._hideInputError(inputElement, errorElement);
     }
     else {
-      this._showInputError(inputElement, inputElement.validationMessage, this._config);
+      this._showInputError(inputElement, errorElement, inputElement.validationMessage);
     }
   }
 
-  _showInputError(inputElement,  errorMessage) {
-    const errorElement = this._formElement.querySelector('.popup__input-error');
+  _showInputError(inputElement, errorElement, errorMessage) {
     inputElement.classList.add(this._config.popupInputInactive);
     errorElement.textContent = errorMessage;
     errorElement.classList.add(this._config.popupMessageError);
