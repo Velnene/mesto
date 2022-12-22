@@ -73,3 +73,13 @@ const config = {
   popupInputErorr: '.popup__input-erorr',
   popupInputInactive: 'popup__input-inactive'
 }
+
+
+class FormValidator {
+
+  constructor() {
+    
+   }
+
+
+ }

@@ -61,25 +61,7 @@ function formSubmitProfiledHandler(evt) {
 }
 //обработчик событий для сохранения пользовательского ввода 
 popupSubmitElement.addEventListener('submit', formSubmitProfiledHandler);
-//Создание карточки через js
-function createCard(cardData) {
-  const cardElement = cardTemplate.querySelector('.element').cloneNode(true);
-  const elementImage = cardElement.querySelector('.element__image');
-  cardElement.querySelector('.element__name').textContent = cardData.name;
-  elementImage.src = cardData.link;
-  elementImage.alt = cardData.name;
-  cardElement.querySelector('.element__like').addEventListener('click', handleLikeButton);
-  cardElement.querySelector('.element__remove').addEventListener('click', removeCard);
-  elementImage.addEventListener('click', openPopupImage);
-  return cardElement;
-}
-function addCard(item) {
-  cardsContainer.prepend(createCard(item));
-}
-//добавление карточек 
-initialCards.forEach(function (item) {
-  addCard(item);
-});
+
 //обработчик событий добавление карточки 
 buttonOpenNewCardPopup.addEventListener('click', function () {
   disableButton(popupCardButonSubmit, config);
@@ -104,14 +86,8 @@ function handleAddCard(evt) {
   closePopupCard();
 }
 popupCardForm.addEventListener('submit', handleAddCard);
-//лайк карточки
-function handleLikeButton(evt) {
-  evt.target.classList.toggle('element__like_active');
-}
-//функция удаления карточки 
-function removeCard(evt) {
-  evt.target.closest('.element').remove();
-}
+
+
 // закрытие картинки
 function popupCloseImage() {
   closePopup(popupOpenImage);
@@ -137,3 +113,17 @@ const handleClosePopupClickEsc = function (event) {
 }
 //закрытие попапа при нажатии вне попапа обработчик событий
 popupOpenImage.addEventListener('click', handleClosePopupOnClickOverlay);
+
+
+//добавление карточек 
+initialCards.forEach((item) => {
+  const newCard = new Card(item, '#element-template');
+  const addCard = newCard.render();
+  cardsContainer.prepend(addCard);
+})
+// создание карточки 
+const addCard = (item) => {
+  const newcard = new Card(item, '#element-template').render();
+  cardsContainer.prepend(newcard);
+};
+
