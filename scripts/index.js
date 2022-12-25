@@ -1,3 +1,7 @@
+import { initialCards } from './cards.js';
+import { Card } from './Card.js';
+import { FormValidator, config } from './FormValidator.js';
+
 //переменные
 const popupProfileInfo = document.querySelector('.popup_info');
 const popupProfileForm = popupProfileInfo.querySelector('.popup__form');
@@ -21,10 +25,6 @@ const userProfession = formProfile.querySelector('.profile__profession');
 const nameCard = popupCard.querySelector('.popup__input-name');
 const linkCard = popupCard.querySelector('.popup__input-profession');
 const popupCardButonSubmit = popupCard.querySelector('.popup__button');
-
-import { initialCards } from './cards.js';
-import { Card } from './Card.js';
-import { FormValidator, config } from './FormValidator.js';
 
 //фунции открыть попап
 function openPopup(popup) {
@@ -130,12 +130,17 @@ const handleClosePopupClickEsc = function (event) {
 //закрытие попапа при нажатии вне попапа обработчик событий
 popupOpenImage.addEventListener('click', handleClosePopupOnClickOverlay);
 
-// создание карточки 
-const addCard = (cardData) => {
+// создание карточки  
+const createCard = (cardData) => {
   const newCard = new Card(cardData, '#element-template').createCard();
-  cardsContainer.prepend(newCard);
+  return newCard;
 };
-
+// функция добавления карточки на страницу
+const addCard = (cardData) => {
+  const card = createCard(cardData);
+  cardsContainer.prepend(card);
+}
+ 
 //добавление карточек 
 initialCards.forEach((item) => {
   addCard(item);

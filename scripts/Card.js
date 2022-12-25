@@ -27,7 +27,7 @@ export class Card {
 
   _setEventListeners() {
     this._elementLike = this._newCard.querySelector('.element__like');
-    this._newCard.querySelector('.element__like').addEventListener('click', () => { this._handleLikeButton() });
+    this._elementLike.addEventListener('click', () => { this._handleLikeButton() });
     this._newCard.querySelector('.element__remove').addEventListener('click', () => { this._handleRemoveCard() });
     this._newCard.querySelector('.element__image').addEventListener('click', openPopupImage);
   }
