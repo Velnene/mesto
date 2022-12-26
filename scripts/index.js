@@ -1,7 +1,7 @@
 import { initialCards } from './cards.js';
 import { Card } from './Card.js';
 import { FormValidator, config } from './FormValidator.js';
-
+import '../pages/index.css';
 //переменные
 const popupProfileInfo = document.querySelector('.popup_info');
 const popupProfileForm = popupProfileInfo.querySelector('.popup__form');

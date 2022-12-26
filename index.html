@@ -5,19 +5,18 @@
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="stylesheet" href="./pages/index.css">
   <title>Mesto</title>
 </head>
 
 <body class="page">
   <div class="page__container">
     <header class="header">
-      <img class="header__logo" src="./images/logo.svg" alt="логотип">
+      <img class="header__logo" src="<%=require('./images/logo.svg')%>" alt="логотип">
     </header>
     <main>
       <section class="profile">
         <div class="profile__content">
-          <img class="profile__avatar" src="./images/Avatar.svg" alt="аватарка">
+          <img class="profile__avatar" src="<%=require('./images/Avatar.svg')%>" alt="аватарка">
           <div class="profile__profile-info">
             <h1 class="profile__name">Жак-Ив Кусто</h1>
             <button class="profile__edit-button" type="button" title="Редактировать профиль"></button>
