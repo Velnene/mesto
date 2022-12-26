@@ -26,6 +26,10 @@ const nameCard = popupCard.querySelector('.popup__input-name');
 const linkCard = popupCard.querySelector('.popup__input-profession');
 const popupCardButonSubmit = popupCard.querySelector('.popup__button');
 
+import Popup from './Popup.js';
+const popup = new Popup();
+
+
 //фунции открыть попап
 function openPopup(popup) {
   document.addEventListener('keydown', handleClosePopupClickEsc);
