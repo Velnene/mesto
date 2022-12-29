@@ -2,6 +2,8 @@ import { initialCards } from './cards.js';
 import { Card } from './Card.js';
 import { FormValidator, config } from './FormValidator.js';
 import '../pages/index.css';
+
+
 //переменные
 const popupProfileInfo = document.querySelector('.popup_info');
 const popupProfileForm = popupProfileInfo.querySelector('.popup__form');
@@ -26,11 +28,9 @@ const nameCard = popupCard.querySelector('.popup__input-name');
 const linkCard = popupCard.querySelector('.popup__input-profession');
 const popupCardButonSubmit = popupCard.querySelector('.popup__button');
 
-import Popup from './Popup.js';
-const popup = new Popup();
 
 
-//фунции открыть попап
+//фунция открыть попап
 function openPopup(popup) {
   document.addEventListener('keydown', handleClosePopupClickEsc);
   popup.classList.add('popup_opened');
@@ -98,7 +98,7 @@ function handleAddCard(evt) {
     name: nameCard.value,
     link: linkCard.value
   }
-  addCard(card)
+  section.addItem(card)
   popupCardForm.reset();
   closePopupCard();
 }
@@ -108,7 +108,7 @@ popupCardForm.addEventListener('submit', handleAddCard);
 function popupCloseImage() {
   closePopup(popupOpenImage);
 }
-//открытие попапа с картинки 
+//открытие попапа с картинки w
 popupButtonCloseImage.addEventListener('click', popupCloseImage);
 export function openPopupImage(evt) {
   popupImage.src = evt.target.src;
@@ -134,18 +134,32 @@ const handleClosePopupClickEsc = function (event) {
 //закрытие попапа при нажатии вне попапа обработчик событий
 popupOpenImage.addEventListener('click', handleClosePopupOnClickOverlay);
 
-// создание карточки  
-const createCard = (cardData) => {
-  const newCard = new Card(cardData, '#element-template').createCard();
-  return newCard;
-};
-// функция добавления карточки на страницу
-const addCard = (cardData) => {
-  const card = createCard(cardData);
-  cardsContainer.prepend(card);
-}
- 
-//добавление карточек 
-initialCards.forEach((item) => {
-  addCard(item);
-})
+
+
+import Section from './Section.js';
+
+const section = new Section({
+  items: initialCards,
+  renderer: (cardData) => { 
+    const newCard = new Card(cardData, '#element-template').createCard();
+    return newCard;
+  }
+}, '.elements');
+
+section.CreateItems();
+
+// // создание карточки  
+// const createCard = (cardData) => {
+//   const newCard = new Card(cardData, '#element-template').createCard();
+//   return newCard;
+// };
+// // функция добавления карточки на страницу
+// const addCard = (cardData) => {
+//   const card = createCard(cardData);
+//   cardsContainer.prepend(card);
+// }
+
+// //добавление карточек 
+// initialCards.forEach((item) => {
+//   addCard(item);
+// })
