@@ -28,28 +28,27 @@ const nameCard = popupCard.querySelector('.popup__input-name');
 const linkCard = popupCard.querySelector('.popup__input-profession');
 const popupCardButonSubmit = popupCard.querySelector('.popup__button');
 
+import Popup from './Popup.js';
+const popup = new Popup('.popup_info');
 
 
+//esc
+const handleClosePopupClickEsc = function (event) {
+  if (event.key === "Escape") {
+    const openedPopup = document.querySelector('.popup_opened');
+    closePopup(openedPopup);
+  }
+}
 //фунция открыть попап
 function openPopup(popup) {
   document.addEventListener('keydown', handleClosePopupClickEsc);
   popup.classList.add('popup_opened');
 }
 
-//открыть попап инфо
-const openPopupInfo = function (event) {
-  nameInput.value = userName.textContent;
-  jobInput.value = userProfession.textContent;
-  openPopup(popupProfileInfo);
-}
-
 //закрыть попап 
 function closePopup(popup) {
   document.removeEventListener('keydown', handleClosePopupClickEsc);
   popup.classList.remove('popup_opened');
-}
-function closePopupInfo() {
-  closePopup(popupProfileInfo);
 }
 
 //закрыть попап при нажании вне попапа
@@ -60,10 +59,24 @@ const handleClosePopupOnClickOverlay = function (event) {
   closePopup(event.currentTarget);
 }
 
+
+//открыть попап инфо
+const openPopupInfo = function (event) {
+  nameInput.value = userName.textContent;
+  jobInput.value = userProfession.textContent;
+  popup.open();
+}
+
+
+function closePopupInfo() {
+  popup.close();
+}
+
+
 //обработчик событий 
 buttonOpenEditProfilePopup.addEventListener('click', openPopupInfo);
 buttonCloseEditProfilePopup.addEventListener('click', closePopupInfo);
-popupProfileInfo.addEventListener('click', handleClosePopupOnClickOverlay);
+// popupProfileInfo.addEventListener('click', handleClosePopupOnClickOverlay);
 
 //сохранить пользовательский ввод
 function handleProfileFormSubmit(evt) {
@@ -123,43 +136,20 @@ const profileFormValidator = new FormValidator(config, popupProfileForm);
 cardFormValidator.enableValidation();
 profileFormValidator.enableValidation();
 
-//esc
-const handleClosePopupClickEsc = function (event) {
-  if (event.key === "Escape") {
-    const openedPopup = document.querySelector('.popup_opened');
-    closePopup(openedPopup);
-  }
-}
+
 
 //закрытие попапа при нажатии вне попапа обработчик событий
 popupOpenImage.addEventListener('click', handleClosePopupOnClickOverlay);
 
 
-
+// import class Section
 import Section from './Section.js';
-
+// создание карточки и иницивлизация карточек
 const section = new Section({
   items: initialCards,
-  renderer: (cardData) => { 
+  renderer: (cardData) => {
     const newCard = new Card(cardData, '#element-template').createCard();
     return newCard;
   }
-}, '.elements');
-
+}, cardsContainer);
 section.CreateItems();
-
-// // создание карточки  
-// const createCard = (cardData) => {
-//   const newCard = new Card(cardData, '#element-template').createCard();
-//   return newCard;
-// };
-// // функция добавления карточки на страницу
-// const addCard = (cardData) => {
-//   const card = createCard(cardData);
-//   cardsContainer.prepend(card);
-// }
-
-// //добавление карточек 
-// initialCards.forEach((item) => {
-//   addCard(item);
-// })
