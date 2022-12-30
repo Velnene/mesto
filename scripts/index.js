@@ -24,47 +24,39 @@ const linkCard = popupCard.querySelector('.popup__input-profession');
 const popupCardButonSubmit = popupCard.querySelector('.popup__button');
 
 
-//фунция открыть попап Info
-function openPopup() {
-  popupInfo.classList.add('popup_opened');
-}
-//закрыть попап Info
-function closePopup() {
-  popupInfo.close();
-}
-
-
 
 
 
 //открыть попап инфо
-const openPopupInfo = function (event) {
-  nameInput.value = userName.textContent;
-  jobInput.value = userProfession.textContent;
+const openPopupInfo = function () {
+  ({
+    name: nameInput.value,
+    job: jobInput.value
+  } = userInfo.getUserInfo());
   popupInfo.open();
 }
 
 
-function closePopupInfo() {
-  popup.close();
-}
+// function closePopupInfo() {
+//   popupInfo.close();
+// }
 
 
 //обработчик событий 
 buttonOpenEditProfilePopup.addEventListener('click', openPopupInfo);
-buttonCloseEditProfilePopup.addEventListener('click', closePopupInfo);
+// buttonCloseEditProfilePopup.addEventListener('click', closePopupInfo);
 // popupProfileInfo.addEventListener('click', handleClosePopupOnClickOverlay);
 
-//сохранить пользовательский ввод
-function handleProfileFormSubmit(evt) {
-  evt.preventDefault();
-  userName.textContent = nameInput.value;
-  userProfession.textContent = jobInput.value;
-  closePopup(popupProfileInfo);
-}
+// //сохранить пользовательский ввод
+// function handleProfileFormSubmit(evt) {
+//   evt.preventDefault();
+//   userName.textContent = nameInput.value;
+//   userProfession.textContent = jobInput.value;
+//   closePopup(popupProfileInfo);
+// }
 
 //обработчик событий для сохранения пользовательского ввода 
-popupSubmitElement.addEventListener('submit', handleProfileFormSubmit);
+// popupSubmitElement.addEventListener('submit', handleProfileFormSubmit);
 
 //обработчик событий добавление карточки 
 buttonOpenNewCardPopup.addEventListener('click', function () {
@@ -72,10 +64,10 @@ buttonOpenNewCardPopup.addEventListener('click', function () {
   popupWithCard.open();
 });
 
-// close popup
-function closePopupCard() {
-  popupWithForm.close();
-}
+// // close popup
+// function closePopupCard() {
+//   popupWithForm.close();
+// }
 
 
 
@@ -92,7 +84,7 @@ function handleAddCard(evt) {
 }
 
 
-popupCardForm.addEventListener('submit', handleAddCard);
+// popupCardForm.addEventListener('submit', handleAddCard);
 
 
 
@@ -113,12 +105,16 @@ export function openPopupImage(name, link) {
 }
 
 
-
+import UserInfo from './UserInfo'
+const userInfo = new UserInfo({ userName: userName, userProfession: userProfession });
 import PopupWithForm from './PopupWithForm.js';
 const popupWithCard = new PopupWithForm('.popup_card');
-const popupInfo = new PopupWithForm('.popup_info');
-
-
+const popupInfo = new PopupWithForm('.popup_info', () => {
+  userInfo.setUserInfo();
+  console.log('this');
+  popupInfo.close();
+});
+popupInfo.setEventListeners();
 
 
 // import class Section
