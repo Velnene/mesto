@@ -1,4 +1,3 @@
-
 export class Card {
   constructor({ name, link }, selector, openPopupImage) {
     this._name = name;
@@ -29,7 +28,7 @@ export class Card {
     this._elementLike = this._newCard.querySelector('.element__like');
     this._elementLike.addEventListener('click', () => { this._handleLikeButton() });
     this._newCard.querySelector('.element__remove').addEventListener('click', () => { this._handleRemoveCard() });
-    this._newCard.querySelector('.element__image').addEventListener('click', () => { this._openPopupImage (this._name, this._link) } );
+    this._newCard.querySelector('.element__image').addEventListener('click', () => { this._openPopupImage(this._name, this._link) });
   }
 
   createCard() {

@@ -23,10 +23,10 @@ const userProfession = formProfile.querySelector('.profile__profession');
 const nameCard = popupCard.querySelector('.popup__input-name');
 const linkCard = popupCard.querySelector('.popup__input-profession');
 const popupCardButonSubmit = popupCard.querySelector('.popup__button');
-
-
-
-
+const popupWithImage = new PopupWithImage('.popup_open-image');
+const userInfo = new UserInfo({ userName: userName, userProfession: userProfession });
+const cardFormValidator = new FormValidator(config, popupCardForm);
+const profileFormValidator = new FormValidator(config, popupProfileForm);
 
 //открыть попап инфо
 const openPopupInfo = function () {
@@ -34,56 +34,33 @@ const openPopupInfo = function () {
     name: nameInput.value,
     job: jobInput.value
   } = userInfo.getUserInfo());
+  profileFormValidator.disableButton(buttonOpenEditProfilePopup);
   popupInfo.open();
 }
 
-
-
-
-
 //обработчик событий 
 buttonOpenEditProfilePopup.addEventListener('click', openPopupInfo);
-
-
 //обработчик событий добавление карточки 
 buttonOpenNewCardPopup.addEventListener('click', function () {
   cardFormValidator.disableButton(popupCardButonSubmit);
   popupWithCard.open();
 });
 
-
 // validity
-const cardFormValidator = new FormValidator(config, popupCardForm);
-const profileFormValidator = new FormValidator(config, popupProfileForm);
 cardFormValidator.enableValidation();
 profileFormValidator.enableValidation();
 
-
-
-
-
-const popupWithImage = new PopupWithImage('.popup_open-image');
 //открытие попапа с картинки w
 export function openPopupImage(name, link) {
   popupWithImage.open(name, link);
 }
 popupWithImage.setEventListeners();
 
-
-
-
-
-const userInfo = new UserInfo({ userName: userName, userProfession: userProfession });
-
-
 const popupInfo = new PopupWithForm('.popup_info', () => {
   userInfo.setUserInfo();
-  console.log('this');
   popupInfo.close();
 });
 popupInfo.setEventListeners();
-
-
 
 // создание карточки и иницивлизация карточек
 const section = new Section({
@@ -94,7 +71,6 @@ const section = new Section({
   }
 }, cardsContainer);
 section.CreateItems();
-
 
 // Добавление новой карточки
 const popupWithCard = new PopupWithForm('.popup_card', () => {

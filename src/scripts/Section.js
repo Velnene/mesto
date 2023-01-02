@@ -4,11 +4,13 @@ export default class Section {
     this._renderer = renderer;
     this._cardsContainer = containerSelector;
   }
+
   CreateItems() {
     this._items.forEach(element => {
       this.addItem(element);
-});
+    });
   }
+
   addItem(item) {
     const card = this._renderer(item);
     this._cardsContainer.prepend(card);
