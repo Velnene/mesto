@@ -34,11 +34,11 @@ export class Card {
 
   createCard() {
     this._newCard = this._getTemplate();
-    this._setEventListeners();
     this._elementImage = this._newCard.querySelector('.element__image');
     this._newCard.querySelector('.element__name').textContent = this._name;
     this._elementImage.src = this._link;
     this._elementImage.alt = this._name;
+    this._setEventListeners();
     return this._newCard;
   }
 }
