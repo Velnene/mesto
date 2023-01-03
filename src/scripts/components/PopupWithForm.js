@@ -1,7 +1,7 @@
 import Popup from "./Popup";
 
 export default class PopupWithForm extends Popup {
-  constructor(selectorPopup,  submitForm ) {
+  constructor(selectorPopup, submitForm) {
     super(selectorPopup);
     this._submitForm = submitForm;
     this._input = {};

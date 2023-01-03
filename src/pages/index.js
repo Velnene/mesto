@@ -20,11 +20,8 @@ const nameInput = popupProfileForm.querySelector('.popup__input-name');
 const jobInput = popupProfileForm.querySelector('.popup__input-profession');
 const userName = formProfile.querySelector('.profile__name');
 const userProfession = formProfile.querySelector('.profile__profession');
-const nameCard = popupCard.querySelector('.popup__input-name');
-const linkCard = popupCard.querySelector('.popup__input-profession');
 const popupCardButonSubmit = popupCard.querySelector('.popup__button');
 const popupWithImage = new PopupWithImage('.popup_open-image');
-
 const userInfo = new UserInfo({ userName: userName, userProfession: userProfession });
 const cardFormValidator = new FormValidator(config, popupCardForm);
 const profileFormValidator = new FormValidator(config, popupProfileForm);
@@ -38,6 +35,12 @@ const openPopupInfo = function () {
   profileFormValidator.disableButton(buttonOpenEditProfilePopup);
   popupInfo.open();
 }
+
+const popupInfo = new PopupWithForm('.popup_info', ({ name, profession }) => {
+  userInfo.setUserInfo({ name, profession });
+  popupInfo.close();
+});
+popupInfo.setEventListeners();
 
 //обработчик событий 
 buttonOpenEditProfilePopup.addEventListener('click', openPopupInfo);
@@ -57,16 +60,6 @@ export function openPopupImage(name, link) {
 }
 popupWithImage.setEventListeners();
 
-
-
-
-
-const popupInfo = new PopupWithForm('.popup_info', () => {
-  userInfo.setUserInfo(nameInput.value, jobInput.value);
-  popupInfo.close();
-});
-popupInfo.setEventListeners();
- 
 // создание карточки и иницивлизация карточек
 const section = new Section({
   items: initialCards,
@@ -78,10 +71,10 @@ const section = new Section({
 section.createItems();
 
 // Добавление новой карточки
-const popupWithCard = new PopupWithForm('.popup_card',  (data) => {
+const popupWithCard = new PopupWithForm('.popup_card', ({ name, link }) => {
   const card = {
-    name: data.name,
-    link: data.link
+    name: name,
+    link: link
   }
   section.addItem(card)
   popupWithCard.close();
