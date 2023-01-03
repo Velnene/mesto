@@ -16,14 +16,15 @@ const cardsContainer = document.querySelector('.elements');
 const popupCard = document.querySelector('.popup_card');
 const popupCardForm = popupCard.querySelector('.popup__form');
 const buttonOpenNewCardPopup = document.querySelector('.profile__add-button');
-const nameInput = document.querySelector('.popup__input-name');
-const jobInput = document.querySelector('.popup__input-profession');
+const nameInput = popupProfileForm.querySelector('.popup__input-name');
+const jobInput = popupProfileForm.querySelector('.popup__input-profession');
 const userName = formProfile.querySelector('.profile__name');
 const userProfession = formProfile.querySelector('.profile__profession');
 const nameCard = popupCard.querySelector('.popup__input-name');
 const linkCard = popupCard.querySelector('.popup__input-profession');
 const popupCardButonSubmit = popupCard.querySelector('.popup__button');
 const popupWithImage = new PopupWithImage('.popup_open-image');
+
 const userInfo = new UserInfo({ userName: userName, userProfession: userProfession });
 const cardFormValidator = new FormValidator(config, popupCardForm);
 const profileFormValidator = new FormValidator(config, popupProfileForm);
@@ -56,12 +57,16 @@ export function openPopupImage(name, link) {
 }
 popupWithImage.setEventListeners();
 
+
+
+
+
 const popupInfo = new PopupWithForm('.popup_info', () => {
-  userInfo.setUserInfo();
+  userInfo.setUserInfo(nameInput.value, jobInput.value);
   popupInfo.close();
 });
 popupInfo.setEventListeners();
-
+ 
 // создание карточки и иницивлизация карточек
 const section = new Section({
   items: initialCards,
@@ -70,13 +75,13 @@ const section = new Section({
     return newCard;
   }
 }, cardsContainer);
-section.CreateItems();
+section.createItems();
 
 // Добавление новой карточки
-const popupWithCard = new PopupWithForm('.popup_card', () => {
+const popupWithCard = new PopupWithForm('.popup_card',  (data) => {
   const card = {
-    name: nameCard.value,
-    link: linkCard.value
+    name: data.name,
+    link: data.link
   }
   section.addItem(card)
   popupWithCard.close();

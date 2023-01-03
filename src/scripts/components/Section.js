@@ -5,7 +5,7 @@ export default class Section {
     this._cardsContainer = containerSelector;
   }
 
-  CreateItems() {
+  createItems() {
     this._items.forEach(element => {
       this.addItem(element);
     });

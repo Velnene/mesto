@@ -2,8 +2,6 @@ export default class UserInfo {
   constructor({ userName, userProfession }) {
     this._userName = userName;
     this._userProfession = userProfession;
-    this._nameInput = document.querySelector('.popup__input-name');
-    this._jobInput = document.querySelector('.popup__input-profession');
   }
 
   getUserInfo() {
@@ -13,8 +11,8 @@ export default class UserInfo {
     }
   }
 
-  setUserInfo() {
-    this._userName.textContent = this._nameInput.value;
-    this._userProfession.textContent = this._jobInput.value;
+  setUserInfo(name, job) {
+    this._userName.textContent =name;
+    this._userProfession.textContent = job;
   }
 }
