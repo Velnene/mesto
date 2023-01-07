@@ -1,11 +1,12 @@
 export class Api {
   constructor() {
-    this._cardUrl = 'cards';
-    this._userUrl = 'users/me';
+
+    this._cardUrl = 'https://mesto.nomoreparties.co/v1/cohort-57/cards';
+    this._userUrl = 'https://nomoreparties.co/v1/cohort-57/users/me';
   }
   getUserInfo({ userName, userProfession, avatar }) {
     // profile
-    fetch('https://nomoreparties.co/v1/cohort-57/users/me', {
+    fetch(this._userUrl, {
       headers: {
         authorization: '88f8e5dd-3072-4ebd-b0dd-8f53ee373efd'
       }
@@ -27,7 +28,7 @@ export class Api {
   }
 
   initialCards() {
-   return fetch('https://mesto.nomoreparties.co/v1/cohort-57/cards', {
+   return fetch(this._cardUrl, {
       headers: {
         authorization: '88f8e5dd-3072-4ebd-b0dd-8f53ee373efd'
       }
@@ -37,7 +38,7 @@ export class Api {
       })
   }
   setUserInfo({ name, profession }) { 
-    return fetch('https://nomoreparties.co/v1/cohort-57/users/me', {
+    return fetch(this._userUrl, {
       method: 'PATCH',
       headers: {
         authorization: '88f8e5dd-3072-4ebd-b0dd-8f53ee373efd',
@@ -49,7 +50,24 @@ export class Api {
       })
     })
       .then((res) => { 
-        return res.json;
+        return res.json();
+      });
+  }
+
+  setNewCard(card) { 
+    return fetch(this._cardUrl, {
+      method: 'POST',
+      headers: {
+        authorization: '88f8e5dd-3072-4ebd-b0dd-8f53ee373efd',
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
+        name: card.name,
+        link:  card.link 
+      })
+    })
+      .then((res) => {
+        return res.json();
       });
   }
 }

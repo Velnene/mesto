@@ -78,14 +78,16 @@ const popupWithCard = new PopupWithForm('.popup_card', ({ name, link }) => {
     name: name,
     link: link
   }
-  section.addItem(card)
+  api.setNewCard(card).then(res => {
+    section.addItem(res);
+   });
   popupWithCard.close();
 });
 popupWithCard.setEventListeners();
-// profile
+// profile get User info
 const api = new Api();
 api.getUserInfo({ userName: userName, userProfession: userProfession, avatar: avatar });
-// cards
+// cards initial cards 
 api.initialCards().then((res) => {
   res.forEach(element => {
     section.addItem(element);
