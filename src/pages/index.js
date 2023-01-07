@@ -6,8 +6,10 @@ import UserInfo from '../scripts/components/UserInfo'
 import PopupWithForm from '../scripts/components/PopupWithForm.js';
 import Section from '../scripts/components/Section.js';
 import './index.css';
+import { Api } from '../scripts/components/Api';
 
 //переменные
+const avatar = document.querySelector('.profile__avatar');
 const popupProfileInfo = document.querySelector('.popup_info');
 const popupProfileForm = popupProfileInfo.querySelector('.popup__form');
 const buttonOpenEditProfilePopup = document.querySelector('.profile__edit-button');
@@ -61,14 +63,15 @@ export function openPopupImage(name, link) {
 popupWithImage.setEventListeners();
 
 // создание карточки и иницивлизация карточек
+function renderCards(cardData) { 
+  const newCard = new Card({ name: cardData.name, link: cardData.link }, '#element-template', openPopupImage).createCard();
+  return newCard;
+}
 const section = new Section({
-  items: initialCards,
-  renderer: (cardData) => {
-    const newCard = new Card({ name: cardData.name, link: cardData.link }, '#element-template', openPopupImage).createCard();
-    return newCard;
-  }
+  items: [],
+  renderer: renderCards
 }, cardsContainer);
-section.createItems();
+
 
 // Добавление новой карточки
 const popupWithCard = new PopupWithForm('.popup_card', ({ name, link }) => {
@@ -80,3 +83,12 @@ const popupWithCard = new PopupWithForm('.popup_card', ({ name, link }) => {
   popupWithCard.close();
 });
 popupWithCard.setEventListeners();
+// profile
+const api = new Api();
+api.getUserInfo({ userName: userName, userProfession: userProfession, avatar: avatar });
+// cards
+api.initialCards().then((res) => {
+  res.forEach(element => {
+    section.addItem(element);
+  });
+})
