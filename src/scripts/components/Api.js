@@ -35,6 +35,22 @@ export class Api {
       .then((res) => {
         return res.json();
       })
-   }
+  }
+  setUserInfo({ name, profession }) { 
+    return fetch('https://nomoreparties.co/v1/cohort-57/users/me', {
+      method: 'PATCH',
+      headers: {
+        authorization: '88f8e5dd-3072-4ebd-b0dd-8f53ee373efd',
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
+        name: name,
+        about: profession
+      })
+    })
+      .then((res) => { 
+        return res.json;
+      });
+  }
 }
 

@@ -40,6 +40,7 @@ const openPopupInfo = function () {
 
 const popupInfo = new PopupWithForm('.popup_info', ({ name, profession }) => {
   userInfo.setUserInfo({ name, profession });
+  api.setUserInfo({ name, profession });
   popupInfo.close();
 });
 popupInfo.setEventListeners();
@@ -63,15 +64,13 @@ export function openPopupImage(name, link) {
 popupWithImage.setEventListeners();
 
 // создание карточки и иницивлизация карточек
-function renderCards(cardData) { 
-  const newCard = new Card({ name: cardData.name, link: cardData.link }, '#element-template', openPopupImage).createCard();
-  return newCard;
-}
 const section = new Section({
   items: [],
-  renderer: renderCards
+  renderer: (cardData) => {
+    const newCard = new Card({ name: cardData.name, link: cardData.link }, '#element-template', openPopupImage).createCard();
+    return newCard;
+  }
 }, cardsContainer);
-
 
 // Добавление новой карточки
 const popupWithCard = new PopupWithForm('.popup_card', ({ name, link }) => {
@@ -92,3 +91,5 @@ api.initialCards().then((res) => {
     section.addItem(element);
   });
 })
+
+
