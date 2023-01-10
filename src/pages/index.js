@@ -27,6 +27,7 @@ const popupWithImage = new PopupWithImage('.popup_open-image');
 const userInfo = new UserInfo({ userName: userName, userProfession: userProfession });
 const cardFormValidator = new FormValidator(config, popupCardForm);
 const profileFormValidator = new FormValidator(config, popupProfileForm);
+const likeCount = document.querySelector('.element__like-count');
 
 //открыть попап инфо
 const openPopupInfo = function () {
@@ -76,7 +77,7 @@ const section = new Section({
 const popupWithCard = new PopupWithForm('.popup_card', ({ name, link }) => {
   const card = {
     name: name,
-    link: link
+    link: link,
   }
   api.setNewCard(card).then(res => {
     section.addItem(res);
@@ -85,13 +86,16 @@ const popupWithCard = new PopupWithForm('.popup_card', ({ name, link }) => {
 });
 popupWithCard.setEventListeners();
 // profile get User info
+const state = {
+  array: [],
+}
 const api = new Api();
 api.getUserInfo({ userName: userName, userProfession: userProfession, avatar: avatar });
 // cards initial cards 
-api.initialCards().then((res) => {
+api.initialCards().then( (res) => {
   res.forEach(element => {
+    (state.array = state.array.concat(element));
+
     section.addItem(element);
   });
 })
-
-

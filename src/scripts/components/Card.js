@@ -1,3 +1,5 @@
+import { Api } from "./Api";
+const api = new Api();
 export class Card {
   constructor({ name, link }, selector, openPopupImage) {
     this._name = name;
@@ -17,6 +19,7 @@ export class Card {
 
   _handleLikeButton() {
     this._elementLike.classList.toggle('element__like_active');
+     api.addLike();
   }
 
   _handleRemoveCard() {

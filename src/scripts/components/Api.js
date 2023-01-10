@@ -1,9 +1,9 @@
 export class Api {
   constructor() {
-
     this._cardUrl = 'https://mesto.nomoreparties.co/v1/cohort-57/cards';
     this._userUrl = 'https://nomoreparties.co/v1/cohort-57/users/me';
   }
+
   getUserInfo({ userName, userProfession, avatar }) {
     // profile
     fetch(this._userUrl, {
@@ -28,7 +28,7 @@ export class Api {
   }
 
   initialCards() {
-   return fetch(this._cardUrl, {
+    return fetch(this._cardUrl, {
       headers: {
         authorization: '88f8e5dd-3072-4ebd-b0dd-8f53ee373efd'
       }
@@ -37,7 +37,8 @@ export class Api {
         return res.json();
       })
   }
-  setUserInfo({ name, profession }) { 
+
+  setUserInfo({ name, profession }) {
     return fetch(this._userUrl, {
       method: 'PATCH',
       headers: {
@@ -49,12 +50,22 @@ export class Api {
         about: profession
       })
     })
-      .then((res) => { 
+      .then((res) => {
         return res.json();
       });
   }
 
-  setNewCard(card) { 
+  deleteCard() {
+    return fetch(this._cardUrl, {
+      method: "DELETE",
+      headers: {
+        authorization: '88f8e5dd-3072-4ebd-b0dd-8f53ee373efd',
+        'Content-Type': 'application/jsonж'
+      }
+    })
+  }
+
+  setNewCard(card) {
     return fetch(this._cardUrl, {
       method: 'POST',
       headers: {
@@ -63,12 +74,54 @@ export class Api {
       },
       body: JSON.stringify({
         name: card.name,
-        link:  card.link 
+        link: card.link
       })
     })
       .then((res) => {
         return res.json();
       });
   }
+
+  addLike(cardId) {
+    fetch('https://mesto.nomoreparties.co/v1/cohort-57/cards/' + cardId + '/likes', {
+      method: 'PUT',
+      headers: {
+        authorization: '88f8e5dd-3072-4ebd-b0dd-8f53ee373efd',
+        'Content-Type': 'application/json'
+      }
+    })
+      .then((res) => {
+        return res.json();
+      })
+      .then((res) => {
+        return res.likes;
+      })
+  }
+
+  _deleteLike(cardId) {
+    fetch('https://mesto.nomoreparties.co/v1/cohort-57/cards/' + cardId + '/likes', {
+      method: 'DELETE',
+      headers: {
+        authorization: '88f8e5dd-3072-4ebd-b0dd-8f53ee373efd',
+        'Content-Type': 'application/jsonж charset=UTF-8'
+      }
+    })
+      .then((res) => {
+        return res.json();
+      })
+      .then((res) => {
+        return res.likes;
+      })
+  }
+
+  togleLike(cardId, isLike) {
+    if (isLike) {
+      return this._deleteLike(cardId);
+    }
+    else {
+      return this._addLike(cardId);
+    }
+  }
+
 }
 
