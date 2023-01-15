@@ -28,8 +28,6 @@ const cardFormValidator = new FormValidator(config, popupCardForm);
 const profileFormValidator = new FormValidator(config, popupProfileForm);
 const likeCount = document.querySelector('.element__like-count');
 
-
-
 //открыть попап инфо
 const openPopupInfo = function () {
   ({
@@ -69,7 +67,7 @@ popupWithImage.setEventListeners();
 const section = new Section({
   items: [],
   renderer: (cardData) => {
-    const newCard = new Card({ name: cardData.name, link: cardData.link }, '#element-template', openPopupImage).createCard();
+    const newCard = new Card({ name: cardData.name, link: cardData.link, like: cardData.likes.length }, '#element-template', openPopupImage).createCard();
     return newCard;
   }
 }, cardsContainer);
@@ -87,22 +85,13 @@ const popupWithCard = new PopupWithForm('.popup_card', ({ name, link }) => {
 });
 popupWithCard.setEventListeners();
 // profile get User info
-const state = {
-  array: [],
-}
+
 const api = new Api();
 api.getUserInfo({ userName: userName, userProfession: userProfession, avatar: avatar });
 // cards initial cards 
 api.initialCards().then((res) => {
   res.forEach(element => {
-    (state.array = state.array.concat(element));
-
+    console.log(element.likes.length)
     section.addItem(element);
   });
 })
-// api.addLike().then((res) => {
-//   res.forEach(like => { 
-//     likeCount.textContent = like.likes.length;
-//     console.log(like.likes.length)
-//   })
-// })

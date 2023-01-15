@@ -3,7 +3,7 @@ export class Api {
     this._cardUrl = 'https://mesto.nomoreparties.co/v1/cohort-57/cards';
     this._userUrl = 'https://nomoreparties.co/v1/cohort-57/users/me';
   }
-  
+
   getUserInfo({ userName, userProfession, avatar }) {
     // profile
     fetch(this._userUrl, {
@@ -20,10 +20,10 @@ export class Api {
         }
       })
       .then((me) => {
+        console.log(me)
         userName.textContent = me.name;
         userProfession.textContent = me.about;
         avatar.src = me.avatar;
-        console.log(me);
       })
   }
 
@@ -81,30 +81,6 @@ export class Api {
         return res.json();
       });
   }
-  // api.addLike().then((res) => {
-  //   res.forEach(like => {
-  //     this._newCard.querySelector('.element__like-count').textContent = like.likes.length;
-  //     console.log(like.likes.length)
-  //   })
-  // })
-  createCountLike(card) {
-    return fetch(this._cardUrl, {
-      method: 'GET',
-      headers: {
-        authorization: '88f8e5dd-3072-4ebd-b0dd-8f53ee373efd',
-        'Content-Type': 'application/json'
-      }
-    })
-      .then((res) => {
-        return res.json();
-      })
-      .then((res) => {
-        res.forEach(like => {
-          card.querySelector('.element__like-count').textContent = like.likes.length;
-          console.log(like.likes.length)
-        })
-      })
-  }
 
   addLike(card) {
     return fetch(this._cardUrl, {
@@ -117,9 +93,9 @@ export class Api {
       .then((res) => {
         return res.json();
       })
-      .then(() => {
-        card.querySelector('.element__like-count').textContent += like.likes.length;
-    })
+      .then((card) => {
+        card.querySelector('.element__like-count').textContent = card.likes.length;
+      })
   }
 
   _deleteLike(cardId) {

@@ -1,9 +1,10 @@
 import { Api } from "./Api";
 const api = new Api();
 export class Card {
-  constructor({ name, link }, selector, openPopupImage) {
+  constructor({ name, link, like }, selector, openPopupImage) {
     this._name = name;
     this._link = link;
+    this._like = like;
     this._selector = selector;
     this._openPopupImage = openPopupImage;
   }
@@ -35,9 +36,9 @@ export class Card {
 
   createCard() {
     this._newCard = this._getTemplate();
-    api.createCountLike(this._newCard);
     this._elementImage = this._newCard.querySelector('.element__image');
     this._newCard.querySelector('.element__name').textContent = this._name;
+    this._newCard.querySelector('.element__like-count').textContent = this._like;
     this._elementImage.src = this._link;
     this._elementImage.alt = this._name;
     this._setEventListeners();
