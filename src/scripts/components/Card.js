@@ -19,7 +19,6 @@ export class Card {
 
   _handleLikeButton() {
     this._elementLike.classList.toggle('element__like_active');
-     api.addLike();
   }
 
   _handleRemoveCard() {
@@ -36,6 +35,7 @@ export class Card {
 
   createCard() {
     this._newCard = this._getTemplate();
+    api.createCountLike(this._newCard);
     this._elementImage = this._newCard.querySelector('.element__image');
     this._newCard.querySelector('.element__name').textContent = this._name;
     this._elementImage.src = this._link;

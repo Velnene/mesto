@@ -1,4 +1,3 @@
-import { initialCards } from '../scripts/cards';
 import { Card } from '../scripts/components/Card';
 import { FormValidator, config } from '../scripts/components/FormValidator.js';
 import PopupWithImage from '../scripts/components/PopupWithImage.js';
@@ -28,6 +27,8 @@ const userInfo = new UserInfo({ userName: userName, userProfession: userProfessi
 const cardFormValidator = new FormValidator(config, popupCardForm);
 const profileFormValidator = new FormValidator(config, popupProfileForm);
 const likeCount = document.querySelector('.element__like-count');
+
+
 
 //открыть попап инфо
 const openPopupInfo = function () {
@@ -81,7 +82,7 @@ const popupWithCard = new PopupWithForm('.popup_card', ({ name, link }) => {
   }
   api.setNewCard(card).then(res => {
     section.addItem(res);
-   });
+  });
   popupWithCard.close();
 });
 popupWithCard.setEventListeners();
@@ -92,10 +93,16 @@ const state = {
 const api = new Api();
 api.getUserInfo({ userName: userName, userProfession: userProfession, avatar: avatar });
 // cards initial cards 
-api.initialCards().then( (res) => {
+api.initialCards().then((res) => {
   res.forEach(element => {
     (state.array = state.array.concat(element));
 
     section.addItem(element);
   });
 })
+// api.addLike().then((res) => {
+//   res.forEach(like => { 
+//     likeCount.textContent = like.likes.length;
+//     console.log(like.likes.length)
+//   })
+// })
