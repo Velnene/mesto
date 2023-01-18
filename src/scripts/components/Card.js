@@ -9,10 +9,9 @@ export class Card {
     this._card = card;
     this._selector = selector;
     this._openPopupImage = openPopupImage;
-    // this._isLike = this.isLike();
   }
 
-  isLike() {
+  _addLike() {
     return this._card.likes.some(likeActive =>  likeActive._id === '7e9880c4996415f66991104e' );
   }
 
@@ -25,9 +24,18 @@ export class Card {
     return cardElement;
   }
 
+  toggleLikeButton() { 
+    if (this._addLike()) {
+      this._newCard.querySelector('.element__like').classList.add('element__like_active');
+    }
+    else { 
+      this._newCard.querySelector('.element__like').classList.remove('element__like_active');
+    }
+  }
+
   _handleLikeButton() {
     this._elementLike.classList.toggle('element__like_active');
-    api.togleLike(this._id, this.isLike());
+    api.togleLike(this._id, this._addLike());
   }
 
   _handleRemoveCard() {
@@ -50,6 +58,8 @@ export class Card {
     this._elementImage.src = this._link;
     this._elementImage.alt = this._name;
     this._setEventListeners();
+    this.toggleLikeButton();
+
     return this._newCard;
   }
 }
