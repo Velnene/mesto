@@ -20,7 +20,6 @@ export class Api {
         }
       })
       .then((me) => {
-        console.log(me)
         userName.textContent = me.name;
         userProfession.textContent = me.about;
         avatar.src = me.avatar;
@@ -82,9 +81,9 @@ export class Api {
       });
   }
 
-  addLike(card) {
-    return fetch(this._cardUrl, {
-      method: 'GET',
+  _addLike(cardId) {
+    return fetch('https://mesto.nomoreparties.co/v1/cohort-57/cards/' + cardId + '/likes', {
+      method: 'PUT',
       headers: {
         authorization: '88f8e5dd-3072-4ebd-b0dd-8f53ee373efd',
         'Content-Type': 'application/json'
@@ -93,8 +92,8 @@ export class Api {
       .then((res) => {
         return res.json();
       })
-      .then((card) => {
-        card.querySelector('.element__like-count').textContent = card.likes.length;
+      .then((res) => {
+        return res.likes;
       })
   }
 
@@ -103,7 +102,7 @@ export class Api {
       method: 'DELETE',
       headers: {
         authorization: '88f8e5dd-3072-4ebd-b0dd-8f53ee373efd',
-        'Content-Type': 'application/jsonж charset=UTF-8'
+        'Content-Type': 'application/json'
       }
     })
       .then((res) => {
@@ -115,6 +114,7 @@ export class Api {
   }
 
   togleLike(cardId, isLike) {
+    console.log(isLike)
     if (isLike) {
       return this._deleteLike(cardId);
     }

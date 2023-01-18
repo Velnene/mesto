@@ -67,7 +67,7 @@ popupWithImage.setEventListeners();
 const section = new Section({
   items: [],
   renderer: (cardData) => {
-    const newCard = new Card({ name: cardData.name, link: cardData.link, like: cardData.likes.length }, '#element-template', openPopupImage).createCard();
+    const newCard = new Card({ name: cardData.name, link: cardData.link, like: cardData.likes.length, id: cardData._id, card: cardData }, '#element-template', openPopupImage).createCard();
     return newCard;
   }
 }, cardsContainer);
@@ -91,7 +91,6 @@ api.getUserInfo({ userName: userName, userProfession: userProfession, avatar: av
 // cards initial cards 
 api.initialCards().then((res) => {
   res.forEach(element => {
-    console.log(element.likes.length)
     section.addItem(element);
   });
 })

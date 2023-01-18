@@ -1,12 +1,19 @@
 import { Api } from "./Api";
 const api = new Api();
 export class Card {
-  constructor({ name, link, like }, selector, openPopupImage) {
+  constructor({ name, link, like, id, card }, selector, openPopupImage) {
     this._name = name;
     this._link = link;
     this._like = like;
+    this._id = id;
+    this._card = card;
     this._selector = selector;
     this._openPopupImage = openPopupImage;
+    // this._isLike = this.isLike();
+  }
+
+  isLike() {
+    return this._card.likes.some(likeActive =>  likeActive._id === '7e9880c4996415f66991104e' );
   }
 
   _getTemplate() {
@@ -20,6 +27,7 @@ export class Card {
 
   _handleLikeButton() {
     this._elementLike.classList.toggle('element__like_active');
+    api.togleLike(this._id, this.isLike());
   }
 
   _handleRemoveCard() {
