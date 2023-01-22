@@ -72,6 +72,8 @@ const section = new Section({
   }
 }, cardsContainer);
 
+
+
 // Добавление новой карточки
 const popupWithCard = new PopupWithForm('.popup_card', ({ name, link }) => {
   const card = {

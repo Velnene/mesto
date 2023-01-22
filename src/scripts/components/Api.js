@@ -26,17 +26,6 @@ export class Api {
       })
   }
 
-  initialCards() {
-    return fetch(this._cardUrl, {
-      headers: {
-        authorization: '88f8e5dd-3072-4ebd-b0dd-8f53ee373efd'
-      }
-    })
-      .then((res) => {
-        return res.json();
-      })
-  }
-
   setUserInfo({ name, profession }) {
     return fetch(this._userUrl, {
       method: 'PATCH',
@@ -54,14 +43,33 @@ export class Api {
       });
   }
 
-  deleteCard() {
+  initialCards() {
     return fetch(this._cardUrl, {
+      headers: {
+        authorization: '88f8e5dd-3072-4ebd-b0dd-8f53ee373efd'
+      }
+    })
+      .then((res) => {
+        return res.json();
+      })
+  }
+
+  
+
+  deleteCard(idCard) {
+    return fetch(this._cardUrl + idCard, {
       method: "DELETE",
       headers: {
         authorization: '88f8e5dd-3072-4ebd-b0dd-8f53ee373efd',
         'Content-Type': 'application/jsonж'
       }
     })
+      .then((res) => {
+        return res.json();
+      })
+      .then((res) => {
+        return res;
+      })
   }
 
   setNewCard(card) {
@@ -80,6 +88,21 @@ export class Api {
         return res.json();
       });
   }
+  set(cardId) {
+    return fetch('https://mesto.nomoreparties.co/v1/cohort-57/cards/', {
+      method: 'GET',
+      headers: {
+        authorization: '88f8e5dd-3072-4ebd-b0dd-8f53ee373efd',
+        'Content-Type': 'application/json'
+      }
+    })
+      .then((res) => {
+        return res.json();
+      })
+      .then((res) => {
+        return console.log(res);
+      })
+  }
 
   _addLike(cardId) {
     return fetch('https://mesto.nomoreparties.co/v1/cohort-57/cards/' + cardId + '/likes', {
@@ -92,8 +115,8 @@ export class Api {
       .then((res) => {
         return res.json();
       })
-      .then((res) => {
-        return res.likes;
+      .then(res => {
+        return res.likes
       })
   }
 
@@ -108,13 +131,12 @@ export class Api {
       .then((res) => {
         return res.json();
       })
-      .then((res) => {
-        return res.likes;
-      })
+      .then(res => {
+      return res.likes
+    })
   }
 
   togleLike(cardId, isLike) {
-    console.log(isLike)
     if (isLike) {
       return this._deleteLike(cardId);
     }

@@ -12,7 +12,7 @@ export class Card {
   }
 
   _addLike() {
-    return this._card.likes.some(likeActive =>  likeActive._id === '7e9880c4996415f66991104e' );
+    return this._card.likes.some(likeActive => likeActive._id === '7e9880c4996415f66991104e');
   }
 
   _getTemplate() {
@@ -24,11 +24,11 @@ export class Card {
     return cardElement;
   }
 
-  toggleLikeButton() { 
+  _toggleLikeButton() {
     if (this._addLike()) {
       this._newCard.querySelector('.element__like').classList.add('element__like_active');
     }
-    else { 
+    else {
       this._newCard.querySelector('.element__like').classList.remove('element__like_active');
     }
   }
@@ -36,11 +36,18 @@ export class Card {
   _handleLikeButton() {
     this._elementLike.classList.toggle('element__like_active');
     api.togleLike(this._id, this._addLike());
+    console.log(this._card)
+    console.log(this._card.likes.length)
+    // this._createCoutCard(this._card);
   }
 
   _handleRemoveCard() {
-    this._newCard.remove();
+    this._newCard.remove(this._id);
     this._newCard = null;
+  }
+
+  _createCoutCard(count) {
+    count.querySelector('.element__like-count').textContent = this._like;
   }
 
   _setEventListeners() {
@@ -54,12 +61,11 @@ export class Card {
     this._newCard = this._getTemplate();
     this._elementImage = this._newCard.querySelector('.element__image');
     this._newCard.querySelector('.element__name').textContent = this._name;
-    this._newCard.querySelector('.element__like-count').textContent = this._like;
+    this._createCoutCard(this._newCard);
     this._elementImage.src = this._link;
     this._elementImage.alt = this._name;
     this._setEventListeners();
-    this.toggleLikeButton();
-
+    this._toggleLikeButton();
     return this._newCard;
   }
 }
