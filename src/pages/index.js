@@ -28,6 +28,10 @@ const cardFormValidator = new FormValidator(config, popupCardForm);
 const profileFormValidator = new FormValidator(config, popupProfileForm);
 const likeCount = document.querySelector('.element__like-count');
 
+
+
+
+
 //открыть попап инфо
 const openPopupInfo = function () {
   ({
@@ -39,8 +43,9 @@ const openPopupInfo = function () {
 }
 
 const popupInfo = new PopupWithForm('.popup_info', ({ name, profession }) => {
-  userInfo.setUserInfo({ name, profession });
-  api.setUserInfo({ name, profession });
+  api.setUserInfo({ name, profession }).then((dataUser) => {
+  userInfo.setUserInfo({name :dataUser.name, profession: dataUser.about})
+  })
   popupInfo.close();
 });
 popupInfo.setEventListeners();
@@ -67,9 +72,10 @@ popupWithImage.setEventListeners();
 const section = new Section({
   items: [],
   renderer: (cardData) => {
-    const newCard = new Card({ name: cardData.name, link: cardData.link, like: cardData.likes.length, id: cardData._id, card: cardData }, '#element-template', openPopupImage).createCard();
+    const newCard = new Card({ name: cardData.name, link: cardData.link, like: cardData.likes.length, id: cardData._id, card: cardData
+     }, '#element-template', openPopupImage).createCard();
     return newCard;
-  }
+  },
 }, cardsContainer);
 
 
@@ -96,3 +102,4 @@ api.initialCards().then((res) => {
     section.addItem(element);
   });
 })
+

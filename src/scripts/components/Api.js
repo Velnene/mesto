@@ -104,7 +104,7 @@ export class Api {
       })
   }
 
-  _addLike(cardId) {
+  addLike(cardId) {
     return fetch('https://mesto.nomoreparties.co/v1/cohort-57/cards/' + cardId + '/likes', {
       method: 'PUT',
       headers: {
@@ -115,13 +115,10 @@ export class Api {
       .then((res) => {
         return res.json();
       })
-      .then(res => {
-        return res.likes
-      })
   }
 
-  _deleteLike(cardId) {
-    fetch('https://mesto.nomoreparties.co/v1/cohort-57/cards/' + cardId + '/likes', {
+  deleteLike(cardId) {
+  return  fetch('https://mesto.nomoreparties.co/v1/cohort-57/cards/' + cardId + '/likes', {
       method: 'DELETE',
       headers: {
         authorization: '88f8e5dd-3072-4ebd-b0dd-8f53ee373efd',
@@ -131,17 +128,15 @@ export class Api {
       .then((res) => {
         return res.json();
       })
-      .then(res => {
-      return res.likes
-    })
+ 
   }
 
   togleLike(cardId, isLike) {
     if (isLike) {
-      return this._deleteLike(cardId);
+      return this.deleteLike(cardId);
     }
     else {
-      return this._addLike(cardId);
+      return this.addLike(cardId);
     }
   }
 
