@@ -29,13 +29,16 @@ const userInfo = new UserInfo({ userName: userName, userProfession: userProfessi
 const cardFormValidator = new FormValidator(config, popupCardForm);
 const profileFormValidator = new FormValidator(config, popupProfileForm);
 const likeCount = document.querySelector('.element__like-count');
+const popupDeleteCard = new PopupWithDeleteCard('.popup_card-delete');
+
+export function openPopupDeleteCard(id, card) {
+  popupDeleteCard.open();
+  popupDeleteCard.setEventListeners(id, card);
+
+}
 
 
-// const popupDeleteCard = new PopupWithDeleteCard('.popup_card-delete');
 
-// popupDeleteCard.setEventListeners();
-
-// popupDeleteCard.open();
 
 //открыть попап инфо
 const openPopupInfo = function () {
@@ -49,7 +52,7 @@ const openPopupInfo = function () {
 
 const popupInfo = new PopupWithForm('.popup_info', ({ name, profession }) => {
   api.setUserInfo({ name, profession }).then((dataUser) => {
-  userInfo.setUserInfo({name :dataUser.name, profession: dataUser.about})
+    userInfo.setUserInfo({ name: dataUser.name, profession: dataUser.about })
   })
   popupInfo.close();
 });
@@ -77,8 +80,9 @@ popupWithImage.setEventListeners();
 const section = new Section({
   items: [],
   renderer: (cardData) => {
-    const newCard = new Card({ name: cardData.name, link: cardData.link, like: cardData.likes.length, id: cardData._id, card: cardData, myCard: cardData.owner._id
-     }, '#element-template', openPopupImage).createCard();
+    const newCard = new Card({
+      name: cardData.name, link: cardData.link, like: cardData.likes.length, id: cardData._id, card: cardData, myCard: cardData.owner._id,
+    }, '#element-template', openPopupImage, openPopupDeleteCard).createCard();
     return newCard;
   },
 }, cardsContainer);

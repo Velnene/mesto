@@ -67,9 +67,6 @@ export class Api {
       .then((res) => {
         return res.json();
       })
-      .then((res) => {
-        return res;
-      })
   }
 
   setNewCard(card) {

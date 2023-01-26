@@ -1,7 +1,7 @@
 import { Api } from "./Api";
 const api = new Api();
 export class Card {
-  constructor({ name, link, like, id, card, myCard }, selector, openPopupImage) {
+  constructor({ name, link, like, id, card, myCard }, selector, openPopupImage, openPopupDeleteCard) {
     this._name = name;
     this._link = link;
     this._like = like;
@@ -9,6 +9,7 @@ export class Card {
     this._card = card;
     this._selector = selector;
     this._openPopupImage = openPopupImage;
+    this._openPopupDeleteCard = openPopupDeleteCard;
     this._myCard = myCard;
   }
 
@@ -38,7 +39,7 @@ export class Card {
     if (this.addLike()) {
       api.deleteLike(this._id).then((cardData) => {
         this._newCard.querySelector('.element__like').classList.remove('element__like_active');
-        this.updatelikesCounter(cardData.likes);
+        this._updatelikesCounter(cardData.likes);
         this._card = cardData;
       }).catch((err) => {
         console.log(err);
@@ -46,7 +47,7 @@ export class Card {
     } else {
       api.addLike(this._id).then((cardData) => {
         this._newCard.querySelector('.element__like').classList.add('element__like_active');
-        this.updatelikesCounter(cardData.likes);
+        this._updatelikesCounter(cardData.likes);
         this._card = cardData;
       }).catch((err) => {
         console.log(err);
@@ -54,16 +55,18 @@ export class Card {
     }
   }
 
-  updatelikesCounter(data) {
+  _updatelikesCounter(data) {
     console.log(data.length)
     this._newCard.querySelector('.element__like-count').textContent = data.length;
   }
 
-  _handleRemoveCard() {
+  handleRemoveCard() {
     api.deleteCard(this._id)
     this._newCard.remove(this._id);
     this._newCard = null;
   }
+
+  
 
   _createCoutCard() {
     this._newCard.querySelector('.element__like-count').textContent = this._like;
@@ -71,7 +74,7 @@ export class Card {
 
   _addIconDelete() {
     if (this._myCard === "7e9880c4996415f66991104e") {
-      this._newCard.querySelector('.element__remove').addEventListener('click', () => { this._handleRemoveCard() });
+      this._newCard.querySelector('.element__remove').addEventListener('click', () => { this._openPopupDeleteCard(this._newCard, this._id) });
       console.log('my card')
     }
     else {
@@ -100,14 +103,3 @@ export class Card {
     return this._newCard;
   }
 }
-
-
-// if (!this._isUserCard) {
-//   this._cardDelButton.remove();
-//   this._cardDelButton = null;
-// } else {
-//   this._cardElement.querySelector('.card__del-button').addEventListener('click', (event) => {
-//     this._handleRemoveButton(event);
-//   });
-// }
-//   }
