@@ -69,20 +69,10 @@
     </section>
     <!--popup delet card-->
     <section class="popup popup_card-delete">
-      <form class="popup__form" name="add-card">
+      <form class="popup__form popup__form_card-delete" name="add-card">
         <button class="popup__button-close" type="button" title="кнопка закрытия карточки"></button>
-        <h2 class="popup__title">Новое место</h2>
-        <section class="form">
-          <input class="popup__input popup__input-name" name="name" type="text" minlength="2" maxlength="30"
-            placeholder="Название" required>
-          <span class="popup__input-error"></span>
-        </section>
-        <section class="form">
-          <input class="popup__input popup__input-profession" name="link" type="url" placeholder="Ссылка на картинку"
-            required>
-          <span class="popup__input-error"></span>
-        </section>
-        <button type="submit" class="popup__button" title="кнопка создания карточки">Создать</button>
+        <h2 class="popup__title">Вы уверены?</h2>
+        <button type="submit" class="popup__button" title="кнопка создания карточки">Да</button>
       </form>
     </section>
     <!--popup image-->
@@ -96,12 +86,12 @@
     <!--template card-->
     <template id="element-template">
       <article class="element">
-        <button class="element__remove" type="button" title="кнопка удаления карточки"></button>
+        <button class="element__remove" type="button" title="кнопка удаления карточки" ></button>
         <img class="element__image" alt='#'>
         <div class="element__footer">
           <p class="element__name"></p>
           <button class="element__like" type="button"></button>
-          <p class="element__like-count" ></p>
+          <p class="element__like-count"></p>
         </div>
       </article>
     </template>

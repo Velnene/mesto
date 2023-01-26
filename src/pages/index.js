@@ -16,7 +16,7 @@ const buttonOpenEditProfilePopup = document.querySelector('.profile__edit-button
 const formProfile = document.querySelector('.profile');
 const cardsContainer = document.querySelector('.elements');
 const popupCard = document.querySelector('.popup_card');
-const popupDeletCard = document.querySelector('.popup_card-delet')
+// const popupDeletCard = document.querySelector('.popup_card-delet')
 const popupCardForm = popupCard.querySelector('.popup__form');
 const buttonOpenNewCardPopup = document.querySelector('.profile__add-button');
 const nameInput = popupProfileForm.querySelector('.popup__input-name');
@@ -31,8 +31,11 @@ const profileFormValidator = new FormValidator(config, popupProfileForm);
 const likeCount = document.querySelector('.element__like-count');
 
 
+// const popupDeleteCard = new PopupWithDeleteCard('.popup_card-delete');
 
+// popupDeleteCard.setEventListeners();
 
+// popupDeleteCard.open();
 
 //открыть попап инфо
 const openPopupInfo = function () {
@@ -74,7 +77,7 @@ popupWithImage.setEventListeners();
 const section = new Section({
   items: [],
   renderer: (cardData) => {
-    const newCard = new Card({ name: cardData.name, link: cardData.link, like: cardData.likes.length, id: cardData._id, card: cardData
+    const newCard = new Card({ name: cardData.name, link: cardData.link, like: cardData.likes.length, id: cardData._id, card: cardData, myCard: cardData.owner._id
      }, '#element-template', openPopupImage).createCard();
     return newCard;
   },

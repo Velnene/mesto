@@ -88,21 +88,6 @@ export class Api {
         return res.json();
       });
   }
-  set(cardId) {
-    return fetch('https://mesto.nomoreparties.co/v1/cohort-57/cards/', {
-      method: 'GET',
-      headers: {
-        authorization: '88f8e5dd-3072-4ebd-b0dd-8f53ee373efd',
-        'Content-Type': 'application/json'
-      }
-    })
-      .then((res) => {
-        return res.json();
-      })
-      .then((res) => {
-        return console.log(res);
-      })
-  }
 
   addLike(cardId) {
     return fetch('https://mesto.nomoreparties.co/v1/cohort-57/cards/' + cardId + '/likes', {
