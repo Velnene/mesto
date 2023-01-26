@@ -1,7 +1,7 @@
 export class Api {
   constructor() {
-    this._cardUrl = 'https://mesto.nomoreparties.co/v1/cohort-57/cards';
-    this._userUrl = 'https://nomoreparties.co/v1/cohort-57/users/me';
+    this._cardUrl = 'https://mesto.nomoreparties.co/v1/cohort-57/cards/';
+    this._userUrl = 'https://nomoreparties.co/v1/cohort-57/users/me/';
   }
 
   getUserInfo({ userName, userProfession, avatar }) {
@@ -61,7 +61,7 @@ export class Api {
       method: "DELETE",
       headers: {
         authorization: '88f8e5dd-3072-4ebd-b0dd-8f53ee373efd',
-        'Content-Type': 'application/jsonж'
+        'Content-Type': 'application/json'
       }
     })
       .then((res) => {

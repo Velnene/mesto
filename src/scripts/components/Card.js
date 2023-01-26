@@ -60,6 +60,7 @@ export class Card {
   }
 
   _handleRemoveCard() {
+    api.deleteCard(this._id)
     this._newCard.remove(this._id);
     this._newCard = null;
   }
