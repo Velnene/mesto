@@ -36,10 +36,10 @@ export class Card {
   _handleLikeButton() {
     if (this.addLike()) {
       api.deleteLike(this._id).then((cardData) => {
-        console.log(this._newCard)
-        console.log(this._card)
+        console.log(cardData)
          this._newCard.querySelector('.element__like').classList.remove('element__like_active');
         this.updatelikesCounter(cardData.likes);
+        this._card = cardData;
       }).catch((err) => {
         console.log(err);
       });
@@ -47,6 +47,8 @@ export class Card {
       api.addLike(this._id).then((cardData) => {
          this._newCard.querySelector('.element__like').classList.add('element__like_active');
         this.updatelikesCounter(cardData.likes);
+        this._card = cardData;
+        console.log(cardData)
       }).catch((err) => {
         console.log(err);
       });
@@ -69,7 +71,7 @@ export class Card {
 
   _setEventListeners() {
     this._elementLike = this._newCard.querySelector('.element__like');
-    this._elementLike.addEventListener('click', () => this._handleLikeButton() );
+    this._elementLike.addEventListener('click', () =>  this._handleLikeButton()  );
     this._newCard.querySelector('.element__remove').addEventListener('click', () => { this._handleRemoveCard() });
     this._newCard.querySelector('.element__image').addEventListener('click', () => { this._openPopupImage(this._name, this._link) });
   }

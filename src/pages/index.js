@@ -6,6 +6,7 @@ import PopupWithForm from '../scripts/components/PopupWithForm.js';
 import Section from '../scripts/components/Section.js';
 import './index.css';
 import { Api } from '../scripts/components/Api';
+import { PopupWithDeleteCard } from '../scripts/components/PopupWithDeleteCard';
 
 //переменные
 const avatar = document.querySelector('.profile__avatar');
@@ -15,6 +16,7 @@ const buttonOpenEditProfilePopup = document.querySelector('.profile__edit-button
 const formProfile = document.querySelector('.profile');
 const cardsContainer = document.querySelector('.elements');
 const popupCard = document.querySelector('.popup_card');
+const popupDeletCard = document.querySelector('.popup_card-delet')
 const popupCardForm = popupCard.querySelector('.popup__form');
 const buttonOpenNewCardPopup = document.querySelector('.profile__add-button');
 const nameInput = popupProfileForm.querySelector('.popup__input-name');
