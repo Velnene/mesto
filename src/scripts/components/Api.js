@@ -43,6 +43,23 @@ export class Api {
       });
   }
 
+  changeUserAvatar({avatar}) {
+    return fetch(this._userUrl, {
+      method: 'PATCH',
+      headers: {
+        authorization: '88f8e5dd-3072-4ebd-b0dd-8f53ee373efd',
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
+        avatar: avatar,
+      })
+    })
+      .then((res) => {
+        return res.json();
+      });
+  }
+
+
   initialCards() {
     return fetch(this._cardUrl, {
       headers: {

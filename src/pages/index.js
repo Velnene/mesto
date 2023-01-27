@@ -7,6 +7,7 @@ import Section from '../scripts/components/Section.js';
 import './index.css';
 import { Api } from '../scripts/components/Api';
 import { PopupWithDeleteCard } from '../scripts/components/PopupWithDeleteCard';
+import { PopupChangeAvaar } from '../scripts/components/PopupChangeAvatar';
 
 //переменные
 const avatar = document.querySelector('.profile__avatar');
@@ -37,26 +38,33 @@ export function openPopupDeleteCard(id, card) {
 
 }
 
-
-
-
 //открыть попап инфо
 const openPopupInfo = function () {
   ({
     name: nameInput.value,
-    job: jobInput.value
+    job: jobInput.value,
   } = userInfo.getUserInfo());
   profileFormValidator.disableButton(buttonOpenEditProfilePopup);
   popupInfo.open();
 }
 
+
+
 const popupInfo = new PopupWithForm('.popup_info', ({ name, profession }) => {
   api.setUserInfo({ name, profession }).then((dataUser) => {
-    userInfo.setUserInfo({ name: dataUser.name, profession: dataUser.about })
+    userInfo.setUserInfo({ name: dataUser.name, profession: dataUser.about, avatar: dataUser.avatar })
   })
   popupInfo.close();
 });
 popupInfo.setEventListeners();
+
+
+const avatarChange = document.querySelector('.profile__avatar-button');
+avatarChange.addEventListener('click', () => { popupChangeAvatar.open() } )
+import { PopupChangeAvatar } from '../scripts/components/PopupChangeAvatar';
+const popupChangeAvatar = new PopupChangeAvatar('.popup_change-avatar');
+popupChangeAvatar.setEventListeners()
+
 
 //обработчик событий 
 buttonOpenEditProfilePopup.addEventListener('click', openPopupInfo);
@@ -86,6 +94,7 @@ const section = new Section({
     return newCard;
   },
 }, cardsContainer);
+
 
 
 
