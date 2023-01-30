@@ -2,11 +2,10 @@ export class Api {
   constructor() {
     this._cardUrl = 'https://mesto.nomoreparties.co/v1/cohort-59/cards/';
     this._userUrl = 'https://nomoreparties.co/v1/cohort-59/users/me/';
-    this._token = "4d30e00f-4868-4e38-a672-84cd476f7f32";
+    this._token = '4d30e00f-4868-4e38-a672-84cd476f7f32';
   }
 
   getUserInfo({ userName, userProfession, avatar }) {
-    // profile
     fetch(this._userUrl, {
       headers: {
         authorization: this._token
@@ -41,6 +40,9 @@ export class Api {
     })
       .then((res) => {
         return res.json();
+      })
+      .catch(err => {
+        alert('Error:' + err);
       });
   }
 
@@ -59,9 +61,11 @@ export class Api {
         console.log(res)
         console.log(avatar)
         return res.json();
-      });
+      })
+      .catch(err => {
+        alert('Error:' + err);
+      });;
   }
-
 
   initialCards() {
     return fetch(this._cardUrl, {
@@ -72,9 +76,10 @@ export class Api {
       .then((res) => {
         return res.json();
       })
+      .catch(err => {
+        alert('Error:' + err);
+      });
   }
-
-
 
   deleteCard(idCard) {
     return fetch(this._cardUrl + idCard, {
@@ -87,6 +92,9 @@ export class Api {
       .then((res) => {
         return res.json();
       })
+      .catch(err => {
+        alert('Error:' + err);
+      });
   }
 
   setNewCard(card) {
@@ -103,6 +111,9 @@ export class Api {
     })
       .then((res) => {
         return res.json();
+      })
+      .catch(err => {
+        alert('Error:' + err);
       });
   }
 
@@ -117,6 +128,9 @@ export class Api {
       .then((res) => {
         return res.json();
       })
+      .catch(err => {
+        alert('Error:' + err);
+      });
   }
 
   deleteLike(cardId) {
@@ -130,17 +144,9 @@ export class Api {
       .then((res) => {
         return res.json();
       })
-
+      .catch(err => {
+        alert('Error:' + err);
+      });
   }
-
-  togleLike(cardId, isLike) {
-    if (isLike) {
-      return this.deleteLike(cardId);
-    }
-    else {
-      return this.addLike(cardId);
-    }
-  }
-
 }
 

@@ -9,18 +9,5 @@
 
 .profile__avatar:hover {
   opacity: 0.2;
-  background-image: url('../../../images/edit-button.svg');
-  background-position: center;
-  background-repeat: no-repeat;
-  background-size: 26px;
   cursor: pointer;
-  outline: 1px solid black;
-}
-
-@media screen and (max-width: 910px) {
-  .profile__avatar {
-    display: block;
-    align-items: center;
-    margin: 0 auto;
-  }
 }

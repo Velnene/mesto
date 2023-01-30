@@ -36,7 +36,6 @@ const popupDeleteCard = new PopupWithDeleteCard('.popup_card-delete');
 export function openPopupDeleteCard(id, card) {
   popupDeleteCard.open();
   popupDeleteCard.setEventListeners(id, card);
-
 }
 
 //открыть попап инфо
@@ -49,8 +48,6 @@ const openPopupInfo = function () {
   popupInfo.open();
 }
 
-
-
 const popupInfo = new PopupWithForm('.popup_info', ({ name, profession }) => {
   api.setUserInfo({ name, profession }).then((dataUser) => {
     userInfo.setUserInfo({ name: dataUser.name, profession: dataUser.about, avatar: dataUser.avatar })
@@ -58,8 +55,6 @@ const popupInfo = new PopupWithForm('.popup_info', ({ name, profession }) => {
   popupInfo.close();
 });
 popupInfo.setEventListeners();
-
-
 
 // попап изменения Аватврки
 const avatarInput = document.querySelector('.popup__input-avatar');
@@ -132,6 +127,7 @@ api.getUserInfo({ userName: userName, userProfession: userProfession, avatar: av
 // cards initial cards 
 api.initialCards().then((res) => {
   res.forEach(element => {
+    console.log(element)
     section.addItem(element);
   });
 })

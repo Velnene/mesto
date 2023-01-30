@@ -66,8 +66,6 @@ export class Card {
     this._newCard = null;
   }
 
-  
-
   _createCoutCard() {
     this._newCard.querySelector('.element__like-count').textContent = this._like;
   }
