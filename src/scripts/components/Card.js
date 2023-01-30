@@ -14,7 +14,7 @@ export class Card {
   }
 
   addLike() {
-    return this._card.likes.some(likeActive => likeActive._id === '7e9880c4996415f66991104e');
+    return this._card.likes.some(likeActive => likeActive._id === '32b5b8bf8c92542a79688185');
   }
 
   _getTemplate() {
