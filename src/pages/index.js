@@ -53,7 +53,7 @@ const openPopupInfo = function () {
 
 const popupInfo = new PopupWithForm('.popup_info', ({ name, profession }) => {
   api.setUserInfo({ name, profession }).then((dataUser) => {
-    userInfo.setUserInfo({ name: dataUser.name, profession: dataUser.about })
+    userInfo.setUserInfo({ name: dataUser.name, profession: dataUser.about, avatar: dataUser.avatar })
   })
   popupInfo.close();
 });
