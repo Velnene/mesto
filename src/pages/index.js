@@ -26,7 +26,7 @@ const userName = formProfile.querySelector('.profile__name');
 const userProfession = formProfile.querySelector('.profile__profession');
 const popupCardButonSubmit = popupCard.querySelector('.popup__button');
 const popupWithImage = new PopupWithImage('.popup_open-image');
-const userInfo = new UserInfo({ userName: userName, userProfession: userProfession });
+const userInfo = new UserInfo({ userName: userName, userProfession: userProfession, avatar: avatarInput });
 const cardFormValidator = new FormValidator(config, popupCardForm);
 const profileFormValidator = new FormValidator(config, popupProfileForm);
 const likeCount = document.querySelector('.element__like-count');
@@ -52,18 +52,32 @@ const openPopupInfo = function () {
 
 const popupInfo = new PopupWithForm('.popup_info', ({ name, profession }) => {
   api.setUserInfo({ name, profession }).then((dataUser) => {
-    userInfo.setUserInfo({ name: dataUser.name, profession: dataUser.about, avatar: dataUser.avatar })
+    userInfo.setUserInfo({ name: dataUser.name, profession: dataUser.about })
   })
   popupInfo.close();
 });
 popupInfo.setEventListeners();
 
 
+
+// попап изменения Аватврки
+const avatarInput = document.querySelector('.popup__input-avatar');
 const avatarChange = document.querySelector('.profile__avatar-button');
-avatarChange.addEventListener('click', () => { popupChangeAvatar.open() } )
+const buttonSubmitAvatar = document.querySelector('.popup__form_change-avatar')
+avatarChange.addEventListener('click', () => { popupChangeAvatar.open() })
+buttonSubmitAvatar.addEventListener('submit', (evt) => {
+  evt.preventDefault();
+  api.changeUserAvatar(avatarInput.value).then((dataUser) => {
+    console.log(avatar.src)
+    userInfo.setUserInfo({ avatar: dataUser.avatar })
+  })
+  popupChangeAvatar.close();
+})
 import { PopupChangeAvatar } from '../scripts/components/PopupChangeAvatar';
 const popupChangeAvatar = new PopupChangeAvatar('.popup_change-avatar');
 popupChangeAvatar.setEventListeners()
+//
+
 
 
 //обработчик событий 

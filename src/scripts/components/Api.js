@@ -1,14 +1,15 @@
 export class Api {
   constructor() {
-    this._cardUrl = 'https://mesto.nomoreparties.co/v1/cohort-57/cards/';
-    this._userUrl = 'https://nomoreparties.co/v1/cohort-57/users/me/';
+    this._cardUrl = 'https://mesto.nomoreparties.co/v1/cohort-59/cards/';
+    this._userUrl = 'https://nomoreparties.co/v1/cohort-59/users/me/';
+    this._token = "4d30e00f-4868-4e38-a672-84cd476f7f32";
   }
 
   getUserInfo({ userName, userProfession, avatar }) {
     // profile
     fetch(this._userUrl, {
       headers: {
-        authorization: '88f8e5dd-3072-4ebd-b0dd-8f53ee373efd'
+        authorization: this._token
       }
     })
       .then((res) => {
@@ -30,7 +31,7 @@ export class Api {
     return fetch(this._userUrl, {
       method: 'PATCH',
       headers: {
-        authorization: '88f8e5dd-3072-4ebd-b0dd-8f53ee373efd',
+        authorization: this._token,
         'Content-Type': 'application/json'
       },
       body: JSON.stringify({
@@ -43,18 +44,20 @@ export class Api {
       });
   }
 
-  changeUserAvatar({avatar}) {
-    return fetch(this._userUrl, {
+  changeUserAvatar(avatar) {
+    return fetch(this._userUrl + "avatar/", {
       method: 'PATCH',
       headers: {
-        authorization: '88f8e5dd-3072-4ebd-b0dd-8f53ee373efd',
+        authorization: this._token,
         'Content-Type': 'application/json'
       },
       body: JSON.stringify({
-        avatar: avatar,
+        avatar: avatar
       })
     })
       .then((res) => {
+        console.log(res)
+        console.log(avatar)
         return res.json();
       });
   }
@@ -63,7 +66,7 @@ export class Api {
   initialCards() {
     return fetch(this._cardUrl, {
       headers: {
-        authorization: '88f8e5dd-3072-4ebd-b0dd-8f53ee373efd'
+        authorization: this._token
       }
     })
       .then((res) => {
@@ -71,13 +74,13 @@ export class Api {
       })
   }
 
-  
+
 
   deleteCard(idCard) {
     return fetch(this._cardUrl + idCard, {
       method: "DELETE",
       headers: {
-        authorization: '88f8e5dd-3072-4ebd-b0dd-8f53ee373efd',
+        authorization: this._token,
         'Content-Type': 'application/json'
       }
     })
@@ -90,7 +93,7 @@ export class Api {
     return fetch(this._cardUrl, {
       method: 'POST',
       headers: {
-        authorization: '88f8e5dd-3072-4ebd-b0dd-8f53ee373efd',
+        authorization: this._token,
         'Content-Type': 'application/json'
       },
       body: JSON.stringify({
@@ -104,10 +107,10 @@ export class Api {
   }
 
   addLike(cardId) {
-    return fetch('https://mesto.nomoreparties.co/v1/cohort-57/cards/' + cardId + '/likes', {
+    return fetch(this._cardUrl + cardId + '/likes', {
       method: 'PUT',
       headers: {
-        authorization: '88f8e5dd-3072-4ebd-b0dd-8f53ee373efd',
+        authorization: this._token,
         'Content-Type': 'application/json'
       }
     })
@@ -117,17 +120,17 @@ export class Api {
   }
 
   deleteLike(cardId) {
-  return  fetch('https://mesto.nomoreparties.co/v1/cohort-57/cards/' + cardId + '/likes', {
+    return fetch(this._cardUrl + cardId + '/likes', {
       method: 'DELETE',
       headers: {
-        authorization: '88f8e5dd-3072-4ebd-b0dd-8f53ee373efd',
+        authorization: this._token,
         'Content-Type': 'application/json'
       }
     })
       .then((res) => {
         return res.json();
       })
- 
+
   }
 
   togleLike(cardId, isLike) {

@@ -49,5 +49,6 @@
 @import url('../blocks/popup/__input-inactive/popup__input-inactive.css');
 @import url('../blocks/popup/__form/_card-delete/popup__form_cardDelete.css');
 @import url('../blocks/popup/__form/_change-avatar/popup__form_change-avatar.css');
+@import url('../blocks/popup/__input-avatar/popup__input-avatar.css');
 /*form*/
 @import url('../blocks/form/form.css');

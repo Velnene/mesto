@@ -15,6 +15,7 @@ export default class UserInfo {
   setUserInfo({ name, profession, avatar }) {
     this._userName.textContent = name;
     this._userProfession.textContent = profession;
+    console.log(this._avatar)
     this._avatar.src = avatar;
   }
 
