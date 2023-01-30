@@ -24,9 +24,10 @@ const nameInput = popupProfileForm.querySelector('.popup__input-name');
 const jobInput = popupProfileForm.querySelector('.popup__input-profession');
 const userName = formProfile.querySelector('.profile__name');
 const userProfession = formProfile.querySelector('.profile__profession');
+const userAvatar = formProfile.querySelector('.profile__avatar')
 const popupCardButonSubmit = popupCard.querySelector('.popup__button');
 const popupWithImage = new PopupWithImage('.popup_open-image');
-const userInfo = new UserInfo({ userName: userName, userProfession: userProfession, avatar: avatarInput });
+const userInfo = new UserInfo({ userName: userName, userProfession: userProfession, avatar: userAvatar });
 const cardFormValidator = new FormValidator(config, popupCardForm);
 const profileFormValidator = new FormValidator(config, popupProfileForm);
 const likeCount = document.querySelector('.element__like-count');
@@ -69,7 +70,7 @@ buttonSubmitAvatar.addEventListener('submit', (evt) => {
   evt.preventDefault();
   api.changeUserAvatar(avatarInput.value).then((dataUser) => {
     console.log(avatar.src)
-    userInfo.setUserInfo({ avatar: dataUser.avatar })
+    userInfo.setUserInfo({ name: dataUser.name, profession: dataUser.about, avatar: dataUser.avatar })
   })
   popupChangeAvatar.close();
 })
