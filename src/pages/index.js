@@ -7,29 +7,13 @@ import Section from '../scripts/components/Section.js';
 import './index.css';
 import { Api } from '../scripts/components/Api';
 import { PopupWithDeleteCard } from '../scripts/components/PopupWithDeleteCard';
-import Popup from '../scripts/components/Popup';
-
+import {
+  avatar, popupProfileInfo, popupProfileForm, buttonOpenEditProfilePopup,
+  cardsContainer, popupCard, popupCardForm, buttonOpenNewCardPopup,
+  nameInput, jobInput, userName, userProfession, userAvatar, popupCardButonSubmit,
+  popupAvatar, avatarForm, buttonSubmitAvatar, avatarInput, avatarChange
+} from '../scripts/const';
 //переменные
-const avatar = document.querySelector('.profile__avatar');
-const popupProfileInfo = document.querySelector('.popup_info');
-const popupProfileForm = popupProfileInfo.querySelector('.popup__form');
-const buttonOpenEditProfilePopup = document.querySelector('.profile__edit-button');
-const formProfile = document.querySelector('.profile');
-const cardsContainer = document.querySelector('.elements');
-const popupCard = document.querySelector('.popup_card');
-const popupCardForm = popupCard.querySelector('.popup__form');
-const buttonOpenNewCardPopup = document.querySelector('.profile__add-button');
-const nameInput = popupProfileForm.querySelector('.popup__input-name');
-const jobInput = popupProfileForm.querySelector('.popup__input-profession');
-const userName = formProfile.querySelector('.profile__name');
-const userProfession = formProfile.querySelector('.profile__profession');
-const userAvatar = formProfile.querySelector('.profile__avatar')
-const popupCardButonSubmit = popupCard.querySelector('.popup__button');
-const popupAvatar = document.querySelector('.popup_change-avatar');
-const avatarForm = popupAvatar.querySelector('.popup__form');
-const buttonSubmitAvatar = popupAvatar.querySelector('.popup__form');
-const avatarInput = document.querySelector('.popup__input-avatar');
-const avatarChange = document.querySelector('.profile__avatar-button');
 const api = new Api();
 const popupWithImage = new PopupWithImage('.popup_open-image');
 const userInfo = new UserInfo({ userName: userName, userProfession: userProfession, avatar: userAvatar });
@@ -60,6 +44,7 @@ const popupInfo = new PopupWithForm('.popup_info', ({ name, profession }) => {
     userInfo.setUserInfo({ name: dataUser.name, profession: dataUser.about, avatar: dataUser.avatar })
     popupInfo.close();
   })
+    .catch(err => alert(err))
     .finally(() => {
       popupProfileInfo.querySelector('.popup__button').textContent = 'Сохранить';
     })
@@ -73,15 +58,16 @@ function openPopupAvatar() {
 }
 avatarChange.addEventListener('click', openPopupAvatar)
 function submitAvatar() {
-    popupAvatar.querySelector('.popup__button').textContent = 'Сохранить...';
-    api.changeUserAvatar(avatarInput.value)
-      .then((dataUser) => {
-        userInfo.setUserInfo({ name: dataUser.name, profession: dataUser.about, avatar: dataUser.avatar });
-        popupChangeAvatar.close();
-      })
-      .finally(() => {
-        popupAvatar.querySelector('.popup__button').textContent = 'Сохранить';
-      })
+  popupAvatar.querySelector('.popup__button').textContent = 'Сохранить...';
+  api.changeUserAvatar(avatarInput.value)
+    .then((dataUser) => {
+      userInfo.setUserInfo({ name: dataUser.name, profession: dataUser.about, avatar: dataUser.avatar });
+      popupChangeAvatar.close();
+    })
+    .catch(err => alert(err))
+    .finally(() => {
+      popupAvatar.querySelector('.popup__button').textContent = 'Сохранить';
+    })
 }
 
 popupChangeAvatar.setEventListeners()
@@ -126,6 +112,7 @@ const popupWithCard = new PopupWithForm('.popup_card', ({ name, link }) => {
     section.addNewItem(res);
     popupWithCard.close();
   })
+    .catch(err => alert(err))
     .finally(() => {
       popupCard.querySelector('.popup__button').textContent = 'Создать'
     });
@@ -135,9 +122,9 @@ popupWithCard.setEventListeners();
 api.getUserInfo({ userName: userName, userProfession: userProfession, avatar: avatar });
 // cards initial cards 
 const promisCards =
-api.initialCards().then((res) => {
-  res.forEach(element => {
-    section.addItem(element);
-  });
-})
-
+  api.initialCards().then((res) => {
+    res.forEach(element => {
+      section.addItem(element);
+    })
+  })
+    .catch(err => alert(err))
