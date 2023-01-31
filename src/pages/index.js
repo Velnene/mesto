@@ -7,7 +7,6 @@ import Section from '../scripts/components/Section.js';
 import './index.css';
 import { Api } from '../scripts/components/Api';
 import { PopupWithDeleteCard } from '../scripts/components/PopupWithDeleteCard';
-import { PopupChangeAvaar } from '../scripts/components/PopupChangeAvatar';
 
 //переменные
 const avatar = document.querySelector('.profile__avatar');
@@ -17,7 +16,6 @@ const buttonOpenEditProfilePopup = document.querySelector('.profile__edit-button
 const formProfile = document.querySelector('.profile');
 const cardsContainer = document.querySelector('.elements');
 const popupCard = document.querySelector('.popup_card');
-// const popupDeletCard = document.querySelector('.popup_card-delet')
 const popupCardForm = popupCard.querySelector('.popup__form');
 const buttonOpenNewCardPopup = document.querySelector('.profile__add-button');
 const nameInput = popupProfileForm.querySelector('.popup__input-name');
@@ -28,11 +26,15 @@ const userAvatar = formProfile.querySelector('.profile__avatar')
 const popupCardButonSubmit = popupCard.querySelector('.popup__button');
 const popupWithImage = new PopupWithImage('.popup_open-image');
 const userInfo = new UserInfo({ userName: userName, userProfession: userProfession, avatar: userAvatar });
+const popupDeleteCard = new PopupWithDeleteCard('.popup_card-delete');
 const cardFormValidator = new FormValidator(config, popupCardForm);
 const profileFormValidator = new FormValidator(config, popupProfileForm);
-const likeCount = document.querySelector('.element__like-count');
-const popupDeleteCard = new PopupWithDeleteCard('.popup_card-delete');
+// const avatarFormValidation = new FormValidator(config, popupProfileForm)
+const popupAvatar = document.querySelector('.popup_change-avatar');
+const avatarForm = popupAvatar.querySelector('.popup__form');
+const buttonSubmitAvatar = popupAvatar.querySelector('.popup__form')
 
+console.log(avatarForm)
 export function openPopupDeleteCard(id, card) {
   popupDeleteCard.open();
   popupDeleteCard.setEventListeners(id, card);
@@ -49,25 +51,36 @@ const openPopupInfo = function () {
 }
 
 const popupInfo = new PopupWithForm('.popup_info', ({ name, profession }) => {
+  popupProfileInfo.querySelector('.popup__button').textContent = 'Сохранить...';
   api.setUserInfo({ name, profession }).then((dataUser) => {
     userInfo.setUserInfo({ name: dataUser.name, profession: dataUser.about, avatar: dataUser.avatar })
+    popupInfo.close();
   })
-  popupInfo.close();
+    .finally(() => {
+      popupProfileInfo.querySelector('.popup__button').textContent = 'Сохранить';
+    })
 });
 popupInfo.setEventListeners();
 
 // попап изменения Аватврки
 const avatarInput = document.querySelector('.popup__input-avatar');
 const avatarChange = document.querySelector('.profile__avatar-button');
-const buttonSubmitAvatar = document.querySelector('.popup__form_change-avatar')
-avatarChange.addEventListener('click', () => { popupChangeAvatar.open() })
+function openPopupAvatar() {
+  // avatarFormValidation.disableButton(buttonSubmitAvatar);
+  popupChangeAvatar.open()
+}
+avatarChange.addEventListener('click', openPopupAvatar)
 buttonSubmitAvatar.addEventListener('submit', (evt) => {
+  popupAvatar.querySelector('.popup__button').textContent = 'Сохранить...';
   evt.preventDefault();
   api.changeUserAvatar(avatarInput.value).then((dataUser) => {
-    console.log(avatar.src)
-    userInfo.setUserInfo({ name: dataUser.name, profession: dataUser.about, avatar: dataUser.avatar })
+
+    userInfo.setUserInfo({ name: dataUser.name, profession: dataUser.about, avatar: dataUser.avatar });
+    popupChangeAvatar.close();
   })
-  popupChangeAvatar.close();
+    .finally(() => {
+      popupAvatar.querySelector('.popup__button').textContent = 'Сохранить';
+    })
 })
 import { PopupChangeAvatar } from '../scripts/components/PopupChangeAvatar';
 const popupChangeAvatar = new PopupChangeAvatar('.popup_change-avatar');
@@ -88,7 +101,7 @@ buttonOpenNewCardPopup.addEventListener('click', function () {
 cardFormValidator.enableValidation();
 profileFormValidator.enableValidation();
 
-//открытие попапа с картинки w
+//открытие попапа с картинки
 export function openPopupImage(name, link) {
   popupWithImage.open(name, link);
 }
@@ -105,19 +118,21 @@ const section = new Section({
   },
 }, cardsContainer);
 
-
-
-
 // Добавление новой карточки
 const popupWithCard = new PopupWithForm('.popup_card', ({ name, link }) => {
   const card = {
     name: name,
     link: link,
   }
+  popupCard.querySelector('.popup__button').textContent = 'Создать...'
   api.setNewCard(card).then(res => {
-    section.addItem(res);
-  });
-  popupWithCard.close();
+    section.addNewItem(res);
+    debugger;
+    popupWithCard.close();
+  })
+    .finally(() => {
+      popupCard.querySelector('.popup__button').textContent = 'Создать'
+    });
 });
 popupWithCard.setEventListeners();
 // profile get User info
