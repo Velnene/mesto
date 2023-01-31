@@ -73,11 +73,9 @@ export class Card {
   _addIconDelete() {
     if (this._myCard === "32b5b8bf8c92542a79688185") {
       this._newCard.querySelector('.element__remove').addEventListener('click', () => { this._openPopupDeleteCard(this._newCard, this._id) });
-      console.log('my card')
     }
     else {
       this._buttonDeletecard.remove();
-      console.log('no my card')
     }
   }
 

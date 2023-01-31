@@ -13,7 +13,6 @@ export class PopupWithDeleteCard extends Popup {
   }
 
   setEventListeners(card, id) {
-    console.log(id)
     const popupDelete = document.querySelector('.popup__form_card-delete');
     super.setEventListeners();
     popupDelete.addEventListener('submit', (evt) => {
@@ -21,6 +20,5 @@ export class PopupWithDeleteCard extends Popup {
       this.handleRemoveCard(card, id);
       this.close();
     })
-  console.log(card)
   }
 }

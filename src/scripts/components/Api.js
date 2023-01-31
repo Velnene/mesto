@@ -58,8 +58,6 @@ export class Api {
       })
     })
       .then((res) => {
-        console.log(res)
-        console.log(avatar)
         return res.json();
       })
       .catch(err => {

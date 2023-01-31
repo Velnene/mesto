@@ -7,6 +7,7 @@ import Section from '../scripts/components/Section.js';
 import './index.css';
 import { Api } from '../scripts/components/Api';
 import { PopupWithDeleteCard } from '../scripts/components/PopupWithDeleteCard';
+import { PopupChangeAvatar } from '../scripts/components/PopupChangeAvatar';
 
 //переменные
 const avatar = document.querySelector('.profile__avatar');
@@ -24,17 +25,20 @@ const userName = formProfile.querySelector('.profile__name');
 const userProfession = formProfile.querySelector('.profile__profession');
 const userAvatar = formProfile.querySelector('.profile__avatar')
 const popupCardButonSubmit = popupCard.querySelector('.popup__button');
+const popupAvatar = document.querySelector('.popup_change-avatar');
+const avatarForm = popupAvatar.querySelector('.popup__form');
+const buttonSubmitAvatar = popupAvatar.querySelector('.popup__form');
+const avatarInput = document.querySelector('.popup__input-avatar');
+const avatarChange = document.querySelector('.profile__avatar-button');
+const api = new Api();
 const popupWithImage = new PopupWithImage('.popup_open-image');
 const userInfo = new UserInfo({ userName: userName, userProfession: userProfession, avatar: userAvatar });
 const popupDeleteCard = new PopupWithDeleteCard('.popup_card-delete');
 const cardFormValidator = new FormValidator(config, popupCardForm);
 const profileFormValidator = new FormValidator(config, popupProfileForm);
-// const avatarFormValidation = new FormValidator(config, popupProfileForm)
-const popupAvatar = document.querySelector('.popup_change-avatar');
-const avatarForm = popupAvatar.querySelector('.popup__form');
-const buttonSubmitAvatar = popupAvatar.querySelector('.popup__form')
+const popupChangeAvatar = new PopupChangeAvatar('.popup_change-avatar');
+const avatarFormValidation = new FormValidator(config, buttonSubmitAvatar);
 
-console.log(avatarForm)
 export function openPopupDeleteCard(id, card) {
   popupDeleteCard.open();
   popupDeleteCard.setEventListeners(id, card);
@@ -63,34 +67,26 @@ const popupInfo = new PopupWithForm('.popup_info', ({ name, profession }) => {
 popupInfo.setEventListeners();
 
 // попап изменения Аватврки
-const avatarInput = document.querySelector('.popup__input-avatar');
-const avatarChange = document.querySelector('.profile__avatar-button');
 function openPopupAvatar() {
-  // avatarFormValidation.disableButton(buttonSubmitAvatar);
+  avatarFormValidation.disableButton(avatarForm);
   popupChangeAvatar.open()
 }
 avatarChange.addEventListener('click', openPopupAvatar)
-buttonSubmitAvatar.addEventListener('submit', (evt) => {
+avatarForm.addEventListener('submit', (evt) => {
   popupAvatar.querySelector('.popup__button').textContent = 'Сохранить...';
   evt.preventDefault();
-  api.changeUserAvatar(avatarInput.value).then((dataUser) => {
-
+  api.changeUserAvatar(avatarInput.value)
+    .then((dataUser) => {
     userInfo.setUserInfo({ name: dataUser.name, profession: dataUser.about, avatar: dataUser.avatar });
     popupChangeAvatar.close();
-  })
+    })
     .finally(() => {
       popupAvatar.querySelector('.popup__button').textContent = 'Сохранить';
     })
 })
-import { PopupChangeAvatar } from '../scripts/components/PopupChangeAvatar';
-const popupChangeAvatar = new PopupChangeAvatar('.popup_change-avatar');
 popupChangeAvatar.setEventListeners()
-//
-
-
-
-//обработчик событий 
 buttonOpenEditProfilePopup.addEventListener('click', openPopupInfo);
+
 //обработчик событий добавление карточки 
 buttonOpenNewCardPopup.addEventListener('click', function () {
   cardFormValidator.disableButton(popupCardButonSubmit);
@@ -100,6 +96,7 @@ buttonOpenNewCardPopup.addEventListener('click', function () {
 // validity
 cardFormValidator.enableValidation();
 profileFormValidator.enableValidation();
+avatarFormValidation.enableValidation();
 
 //открытие попапа с картинки
 export function openPopupImage(name, link) {
@@ -127,7 +124,6 @@ const popupWithCard = new PopupWithForm('.popup_card', ({ name, link }) => {
   popupCard.querySelector('.popup__button').textContent = 'Создать...'
   api.setNewCard(card).then(res => {
     section.addNewItem(res);
-    debugger;
     popupWithCard.close();
   })
     .finally(() => {
@@ -137,12 +133,10 @@ const popupWithCard = new PopupWithForm('.popup_card', ({ name, link }) => {
 popupWithCard.setEventListeners();
 // profile get User info
 
-const api = new Api();
 api.getUserInfo({ userName: userName, userProfession: userProfession, avatar: avatar });
 // cards initial cards 
 api.initialCards().then((res) => {
   res.forEach(element => {
-    console.log(element)
     section.addItem(element);
   });
 })
