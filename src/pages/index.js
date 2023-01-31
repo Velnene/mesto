@@ -7,7 +7,7 @@ import Section from '../scripts/components/Section.js';
 import './index.css';
 import { Api } from '../scripts/components/Api';
 import { PopupWithDeleteCard } from '../scripts/components/PopupWithDeleteCard';
-import { PopupChangeAvatar } from '../scripts/components/PopupChangeAvatar';
+import Popup from '../scripts/components/Popup';
 
 //переменные
 const avatar = document.querySelector('.profile__avatar');
@@ -36,7 +36,7 @@ const userInfo = new UserInfo({ userName: userName, userProfession: userProfessi
 const popupDeleteCard = new PopupWithDeleteCard('.popup_card-delete');
 const cardFormValidator = new FormValidator(config, popupCardForm);
 const profileFormValidator = new FormValidator(config, popupProfileForm);
-const popupChangeAvatar = new PopupChangeAvatar('.popup_change-avatar');
+const popupChangeAvatar = new PopupWithForm('.popup_change-avatar', submitAvatar);
 const avatarFormValidation = new FormValidator(config, buttonSubmitAvatar);
 
 export function openPopupDeleteCard(id, card) {
@@ -72,18 +72,18 @@ function openPopupAvatar() {
   popupChangeAvatar.open()
 }
 avatarChange.addEventListener('click', openPopupAvatar)
-avatarForm.addEventListener('submit', (evt) => {
-  popupAvatar.querySelector('.popup__button').textContent = 'Сохранить...';
-  evt.preventDefault();
-  api.changeUserAvatar(avatarInput.value)
-    .then((dataUser) => {
-    userInfo.setUserInfo({ name: dataUser.name, profession: dataUser.about, avatar: dataUser.avatar });
-    popupChangeAvatar.close();
-    })
-    .finally(() => {
-      popupAvatar.querySelector('.popup__button').textContent = 'Сохранить';
-    })
-})
+function submitAvatar() {
+    popupAvatar.querySelector('.popup__button').textContent = 'Сохранить...';
+    api.changeUserAvatar(avatarInput.value)
+      .then((dataUser) => {
+        userInfo.setUserInfo({ name: dataUser.name, profession: dataUser.about, avatar: dataUser.avatar });
+        popupChangeAvatar.close();
+      })
+      .finally(() => {
+        popupAvatar.querySelector('.popup__button').textContent = 'Сохранить';
+      })
+}
+
 popupChangeAvatar.setEventListeners()
 buttonOpenEditProfilePopup.addEventListener('click', openPopupInfo);
 
@@ -132,9 +132,9 @@ const popupWithCard = new PopupWithForm('.popup_card', ({ name, link }) => {
 });
 popupWithCard.setEventListeners();
 // profile get User info
-
 api.getUserInfo({ userName: userName, userProfession: userProfession, avatar: avatar });
 // cards initial cards 
+const promisCards =
 api.initialCards().then((res) => {
   res.forEach(element => {
     section.addItem(element);

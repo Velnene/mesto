@@ -56,7 +56,6 @@ export class Card {
   }
 
   _updatelikesCounter(data) {
-    console.log(data.length)
     this._newCard.querySelector('.element__like-count').textContent = data.length;
   }
 

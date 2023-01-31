@@ -16,7 +16,7 @@ export class Api {
           return res.json();
         }
         else {
-          console.log('Ошибка');
+          return Promise.reject(`Ошибка: ${res.status}`);
         }
       })
       .then((me) => {
@@ -39,11 +39,13 @@ export class Api {
       })
     })
       .then((res) => {
-        return res.json();
+        if (res.ok) {
+          return res.json();
+        }
+        else {
+          return Promise.reject(`Ошибка: ${res.status}`);
+        }
       })
-      .catch(err => {
-        alert('Error:' + err);
-      });
   }
 
   changeUserAvatar(avatar) {
@@ -58,11 +60,13 @@ export class Api {
       })
     })
       .then((res) => {
-        return res.json();
+        if (res.ok) {
+          return res.json();
+        }
+        else {
+          return Promise.reject(`Ошибка: ${res.status}`);
+        }
       })
-      .catch(err => {
-        alert('Error:' + err);
-      });;
   }
 
   initialCards() {
@@ -72,11 +76,13 @@ export class Api {
       }
     })
       .then((res) => {
-        return res.json();
+        if (res.ok) {
+          return res.json();
+        }
+        else {
+          return Promise.reject(`Ошибка: ${res.status}`);
+        }
       })
-      .catch(err => {
-        alert('Error:' + err);
-      });
   }
 
   deleteCard(idCard) {
@@ -88,11 +94,13 @@ export class Api {
       }
     })
       .then((res) => {
-        return res.json();
+        if (res.ok) {
+          return res.json();
+        }
+        else {
+          return Promise.reject(`Ошибка: ${res.status}`);
+        }
       })
-      .catch(err => {
-        alert('Error:' + err);
-      });
   }
 
   setNewCard(card) {
@@ -108,11 +116,13 @@ export class Api {
       })
     })
       .then((res) => {
-        return res.json();
+        if (res.ok) {
+          return res.json();
+        }
+        else {
+          return Promise.reject(`Ошибка: ${res.status}`);
+        }
       })
-      .catch(err => {
-        alert('Error:' + err);
-      });
   }
 
   addLike(cardId) {
@@ -124,11 +134,13 @@ export class Api {
       }
     })
       .then((res) => {
-        return res.json();
+        if (res.ok) {
+          return res.json();
+        }
+        else {
+          return Promise.reject(`Ошибка: ${res.status}`);
+        }
       })
-      .catch(err => {
-        alert('Error:' + err);
-      });
   }
 
   deleteLike(cardId) {
@@ -140,11 +152,13 @@ export class Api {
       }
     })
       .then((res) => {
-        return res.json();
+        if (res.ok) {
+          return res.json();
+        }
+        else {
+          return Promise.reject(`Ошибка: ${res.status}`);
+        }
       })
-      .catch(err => {
-        alert('Error:' + err);
-      });
   }
 }
 
