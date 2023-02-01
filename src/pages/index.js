@@ -38,17 +38,6 @@ const openPopupInfo = function () {
   popupInfo.open();
 }
 
-const popupInfo = new PopupWithForm('.popup_info', ({ name, profession }) => {
-  popupProfileInfo.querySelector('.popup__button').textContent = 'Сохранить...';
-  api.setUserInfo({ name, profession }).then((dataUser) => {
-    userInfo.setUserInfo({ name: dataUser.name, profession: dataUser.about, avatar: dataUser.avatar })
-    popupInfo.close();
-  })
-    .catch(err => alert(err))
-    .finally(() => {
-      popupProfileInfo.querySelector('.popup__button').textContent = 'Сохранить';
-    })
-});
 popupInfo.setEventListeners();
 
 // попап изменения Аватврки
@@ -95,7 +84,7 @@ const section = new Section({
   items: [],
   renderer: (cardData) => {
     const newCard = new Card({
-      name: cardData.name, link: cardData.link, like: cardData.likes.length, id: cardData._id, card: cardData, myCard: cardData.owner._id,
+      name: cardData.name, link: cardData.link, like: cardData.likes.length, id: cardData._id, card: cardData, myCard: cardData.owner._id, 
     }, '#element-template', openPopupImage, openPopupDeleteCard, handleLikeButton, addLike).createCard();
     return newCard;
   },
@@ -120,19 +109,35 @@ const popupWithCard = new PopupWithForm('.popup_card', ({ name, link }) => {
 popupWithCard.setEventListeners();
 // profile get User info
 api.getUserInfo({ userName: userName, userProfession: userProfession, avatar: avatar });
-// cards initial cards 
-const promisCards =
-  api.initialCards().then((res) => {
-    res.forEach(element => {
+
+
+Promise.all([api.initialCards(), api.setUserInfo])
+  .then((res) => {
+    res[0].forEach(element => {
       section.addItem(element);
     })
+
+  })
+  .catch(err => alert(err))
+
+
+
+const popupInfo = new PopupWithForm('.popup_info', ({ name, profession }) => {
+  popupProfileInfo.querySelector('.popup__button').textContent = 'Сохранить...';
+  api.setUserInfo({ name, profession }).then((dataUser) => {
+    userInfo.setUserInfo({ name: dataUser.name, profession: dataUser.about, avatar: dataUser.avatar })
+    popupInfo.close();
   })
     .catch(err => alert(err))
+    .finally(() => {
+      popupProfileInfo.querySelector('.popup__button').textContent = 'Сохранить';
+    })
+});
+
 
 function addLike() {
   return this._card.likes.some(likeActive => likeActive._id === '32b5b8bf8c92542a79688185');
 }
-
 
 function handleLikeButton() {
   if (addLike()) {

@@ -38,8 +38,8 @@ export class Card {
   }
 
   handleRemoveCard() {
-    api.deleteCard(this._id)
-    this._newCard.remove(this._id);
+    api.deleteCard(this._myCard)
+    this._newCard.remove(this._myCard);
     this._newCard = null;
   }
 
@@ -48,7 +48,7 @@ export class Card {
   }
 
   _addIconDelete() {
-    console.log(this._myCard)
+    console.log(this._myCard + '1')
     if (this._myCard === "32b5b8bf8c92542a79688185") {
       this._newCard.querySelector('.element__remove').addEventListener('click', () => { this._openPopupDeleteCard(this._newCard, this._id) });
     }
