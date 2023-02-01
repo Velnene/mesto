@@ -96,7 +96,7 @@ const section = new Section({
   renderer: (cardData) => {
     const newCard = new Card({
       name: cardData.name, link: cardData.link, like: cardData.likes.length, id: cardData._id, card: cardData, myCard: cardData.owner._id,
-    }, '#element-template', openPopupImage, openPopupDeleteCard).createCard();
+    }, '#element-template', openPopupImage, openPopupDeleteCard, handleLikeButton, addLike).createCard();
     return newCard;
   },
 }, cardsContainer);
@@ -128,3 +128,31 @@ const promisCards =
     })
   })
     .catch(err => alert(err))
+
+function addLike() {
+  return this._card.likes.some(likeActive => likeActive._id === '32b5b8bf8c92542a79688185');
+}
+
+
+function handleLikeButton() {
+  if (addLike()) {
+    api.deleteLike(this._id).then((cardData) => {
+      this._newCard.querySelector('.element__like').classList.remove('element__like_active');
+      this._updatelikesCounter(cardData.likes);
+      this._card = cardData;
+    }).catch((err) => {
+      console.log(err);
+    });
+  } else {
+    api.addLike(this._id).then((cardData) => {
+      this._newCard.querySelector('.element__like').classList.add('element__like_active');
+      this._updatelikesCounter(cardData.likes);
+      this._card = cardData;
+    }).catch((err) => {
+      console.log(err);
+    });
+  }
+}
+
+
+ 

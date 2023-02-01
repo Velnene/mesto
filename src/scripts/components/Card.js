@@ -1,7 +1,7 @@
 import { Api } from "./Api";
 const api = new Api();
 export class Card {
-  constructor({ name, link, like, id, card, myCard }, selector, openPopupImage, openPopupDeleteCard) {
+  constructor({ name, link, like, id, card, myCard }, selector, openPopupImage, openPopupDeleteCard, handleLikeButton, addLike) {
     this._name = name;
     this._link = link;
     this._like = like;
@@ -11,10 +11,8 @@ export class Card {
     this._openPopupImage = openPopupImage;
     this._openPopupDeleteCard = openPopupDeleteCard;
     this._myCard = myCard;
-  }
-
-  addLike() {
-    return this._card.likes.some(likeActive => likeActive._id === '32b5b8bf8c92542a79688185');
+    this._handleLikeButton = handleLikeButton;
+    this._addLike = addLike;
   }
 
   _getTemplate() {
@@ -27,31 +25,11 @@ export class Card {
   }
 
   _toggleLikeButton() {
-    if (this.addLike()) {
+    if (this._addLike()) {
       this._newCard.querySelector('.element__like').classList.add('element__like_active');
     }
     else {
       this._newCard.querySelector('.element__like').classList.remove('element__like_active');
-    }
-  }
-
-  _handleLikeButton() {
-    if (this.addLike()) {
-      api.deleteLike(this._id).then((cardData) => {
-        this._newCard.querySelector('.element__like').classList.remove('element__like_active');
-        this._updatelikesCounter(cardData.likes);
-        this._card = cardData;
-      }).catch((err) => {
-        console.log(err);
-      });
-    } else {
-      api.addLike(this._id).then((cardData) => {
-        this._newCard.querySelector('.element__like').classList.add('element__like_active');
-        this._updatelikesCounter(cardData.likes);
-        this._card = cardData;
-      }).catch((err) => {
-        console.log(err);
-      });
     }
   }
 
