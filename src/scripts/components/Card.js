@@ -1,7 +1,7 @@
 import { Api } from "./Api";
 const api = new Api();
 export class Card {
-  constructor({ name, link, like, id, card, myCard }, selector, openPopupImage, openPopupDeleteCard, handleLikeButton, addLike) {
+  constructor({ name, link, like, id, card, myCard }, selector, openPopupImage, openPopupDeleteCard, handleLikeButton) {
     this._name = name;
     this._link = link;
     this._like = like;
@@ -12,7 +12,7 @@ export class Card {
     this._openPopupDeleteCard = openPopupDeleteCard;
     this._myCard = myCard;
     this._handleLikeButton = handleLikeButton;
-    this._addLike = addLike;
+    // this._addLike = addLike;
   }
 
   _getTemplate() {
@@ -23,6 +23,10 @@ export class Card {
       .cloneNode(true);
     return cardElement;
   }
+
+_addLike() {
+  return this._card.likes.some(likeActive => likeActive._id === '32b5b8bf8c92542a79688185');
+}
 
   _toggleLikeButton() {
     if (this._addLike()) {
