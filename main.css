@@ -25,7 +25,7 @@
 
 .footer{margin:67px auto 60px;max-width:880px;width:100%}@media screen and (max-width:910px){.footer{margin:48px 0 36px 19px;max-width:282px}}
 .footer__copyright{color:#545454;font-size:18px;font-weight:400;line-height:22px;margin:0;width:100%}@media screen and (max-width:500px){.footer__copyright{font-size:14px;line-height:17px}}
-.popup{background-color:rgba(0,0,0,.5);display:flex;height:100%;left:0;opacity:0;overflow:hidden;position:fixed;top:0;transition:visibility 0s,opacity .5s linear;visibility:hidden;width:100%}
+.popup{background-color:rgba(0,0,0,.5);display:flex;height:100%;left:0;opacity:0;overflow:hidden;position:fixed;top:0;transition:visibility 1s,opacity 1s linear;visibility:hidden;width:100%}
 .popup__form{background-color:#fff;border-radius:10px;box-shadow:0 0 25px rgba(0,0,0,.15);box-sizing:border-box;height:100%;margin:auto;max-height:330px;max-width:430px;padding:34px 36px 37px;position:relative;width:100%}@media screen and (max-width:500px){.popup__form{max-height:322px;max-width:282px;padding:25px 22px}}
 .popup_opened{opacity:1;visibility:visible}
 .popup__title{align-items:center;font-size:24px;font-weight:900;line-height:29px;margin:0 0 54px;max-height:23px}@media screen and (max-width:500px){.popup__title{font-size:18px;line-height:22px;margin-bottom:75px}}
