@@ -1,7 +1,7 @@
 import { Api } from "./Api";
 const api = new Api();
 export class Card {
-  constructor({ name, link, like, id, card, myCard }, selector, openPopupImage, openPopupDeleteCard, handleLikeButton) {
+  constructor({ name, link, like, id, card, userCard }, selector, openPopupImage, openPopupDeleteCard, handleLikeButton) {
     this._name = name;
     this._link = link;
     this._like = like;
@@ -10,7 +10,7 @@ export class Card {
     this._selector = selector;
     this._openPopupImage = openPopupImage;
     this._openPopupDeleteCard = openPopupDeleteCard;
-    this._myCard = myCard;
+    this._userCard = userCard;
     this._handleLikeButton = handleLikeButton;
     // this._addLike = addLike;
   }
@@ -42,8 +42,8 @@ _addLike() {
   }
 
   handleRemoveCard() {
-    api.deleteCard(this._myCard)
-    this._newCard.remove(this._myCard);
+    api.deleteCard(this._userCard)
+    this._newCard.remove(this._userCard);
     this._newCard = null;
   }
 
@@ -52,7 +52,7 @@ _addLike() {
   }
 
   _addIconDelete() {
-    if (this._myCard === "32b5b8bf8c92542a79688185") {
+    if (this._userCard === "32b5b8bf8c92542a79688185") {
       this._newCard.querySelector('.element__remove').addEventListener('click', () => { this._openPopupDeleteCard(this._newCard, this._id) });
     }
     else {

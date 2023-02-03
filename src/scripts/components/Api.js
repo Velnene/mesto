@@ -43,7 +43,7 @@ export class Api {
       })
   }
 
-  changeUserAvatar(avatar) {
+  changeUserAvatar(data) {
     return fetch(this._userUrl + "avatar/", {
       method: 'PATCH',
       headers: {
@@ -51,7 +51,7 @@ export class Api {
         'Content-Type': 'application/json'
       },
       body: JSON.stringify({
-        avatar: avatar
+        avatar: data.avatar
       })
     })
       .then((res) => {

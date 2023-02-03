@@ -30,8 +30,11 @@ popupDeleteCard.setEventListeners();
 
 function handleRemoveCard(id, card) {
   api.deleteCard(id)
-  card.remove(id);
-  card = null;
+    .then((() => {
+      card.remove(id);
+      card = null;
+    }))
+    .catch(err => alert(err))
 }
 
 
@@ -53,10 +56,11 @@ function openPopupAvatar() {
   avatarFormValidation.disableButton(avatarForm);
   popupChangeAvatar.open()
 }
+
 avatarChange.addEventListener('click', openPopupAvatar)
 function submitAvatar() {
   popupAvatar.querySelector('.popup__button').textContent = 'Сохранить...';
-  api.changeUserAvatar(avatarInput.value)
+  api.changeUserAvatar(popupChangeAvatar.getInputValues())
     .then((dataUser) => {
       userInfo.setUserInfo({ name: dataUser.name, profession: dataUser.about, avatar: dataUser.avatar });
       popupChangeAvatar.close();
@@ -92,7 +96,7 @@ const section = new Section({
   items: [],
   renderer: (cardData) => {
     const newCard = new Card({
-      name: cardData.name, link: cardData.link, like: cardData.likes.length, id: cardData._id, card: cardData, myCard: cardData.owner._id,
+      name: cardData.name, link: cardData.link, like: cardData.likes.length, id: cardData._id, card: cardData, userCard: cardData.owner._id,
     }, '#element-template', openPopupImage, openPopupDeleteCard, handleLikeButton).createCard();
     return newCard;
   },
@@ -169,11 +173,4 @@ function handleLikeButton() {
   }
 }
 
-
-
-
-
 popupInfo.setEventListeners();
-
-
-
