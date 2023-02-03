@@ -13,6 +13,7 @@ import {
   nameInput, jobInput, userName, userProfession, userAvatar, popupCardButonSubmit,
   popupAvatar, avatarForm, buttonSubmitAvatar, avatarInput, avatarChange
 } from '../scripts/const';
+
 //переменные
 const api = new Api();
 const popupWithImage = new PopupWithImage('.popup_open-image');
@@ -23,6 +24,7 @@ const profileFormValidator = new FormValidator(config, popupProfileForm);
 const popupChangeAvatar = new PopupWithForm('.popup_change-avatar', submitAvatar);
 const avatarFormValidation = new FormValidator(config, buttonSubmitAvatar);
 let myCardId;
+
 export function openPopupDeleteCard(id, card) {
   popupDeleteCard.open(id, card);
 }
@@ -37,9 +39,6 @@ function handleRemoveCard(id, card) {
     .catch(err => alert(err))
 }
 
-
-
-
 //открыть попап инфо
 const openPopupInfo = function () {
   ({
@@ -49,7 +48,6 @@ const openPopupInfo = function () {
   profileFormValidator.disableButton(buttonOpenEditProfilePopup);
   popupInfo.open();
 }
-
 
 // попап изменения Аватврки
 function openPopupAvatar() {
@@ -121,8 +119,6 @@ const popupWithCard = new PopupWithForm('.popup_card', ({ name, link }) => {
 popupWithCard.setEventListeners();
 // profile get User info
 
-
-
 Promise.all([api.initialCards(), api.getUserInfo({ userName: userName, userProfession: userProfession, avatar: avatar })])
   .then((res) => {
     userName.textContent = res[1].name;
@@ -134,8 +130,6 @@ Promise.all([api.initialCards(), api.getUserInfo({ userName: userName, userProfe
     })
   })
   .catch(err => alert(err))
-
-
 
 const popupInfo = new PopupWithForm('.popup_info', ({ name, profession }) => {
   popupProfileInfo.querySelector('.popup__button').textContent = 'Сохранить...';
@@ -149,13 +143,8 @@ const popupInfo = new PopupWithForm('.popup_info', ({ name, profession }) => {
     })
 });
 
-
-// function addLike() {
-//   return this._card.likes.some(likeActive => likeActive._id === '32b5b8bf8c92542a79688185');
-// }
-
 function handleLikeButton() {
-  if (this._card.likes.some(likeActive => likeActive._id === myCardId)) {
+  if (this._addLike()) {
     api.deleteLike(this._id).then((cardData) => {
       this._newCard.querySelector('.element__like').classList.remove('element__like_active');
       this._updatelikesCounter(cardData.likes);
@@ -173,5 +162,4 @@ function handleLikeButton() {
     });
   }
 }
-
 popupInfo.setEventListeners();

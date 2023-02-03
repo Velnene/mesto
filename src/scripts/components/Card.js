@@ -13,7 +13,6 @@ export class Card {
     this._userCard = userCard;
     this._handleLikeButton = handleLikeButton;
     this._myCardId = myCardId
-    // this._addLike = addLike;
   }
 
   _getTemplate() {
