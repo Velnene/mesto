@@ -2,22 +2,23 @@ import Popup from "./Popup";
 import { Api } from "./Api";
 const api = new Api();
 export class PopupWithDeleteCard extends Popup {
-  constructor(selectorPopup) {
+  constructor(selectorPopup, handleRemoveCard) {
     super(selectorPopup)
+    this._handleRemoveCard = handleRemoveCard;
   }
 
-  handleRemoveCard(card, id) {
-    api.deleteCard(id)
-    card.remove(id);
-    card = null;
-  }
+  open(id, card) {
+    super.open();
+    this._card = card;
+    this._id = id;
+}
 
-  setEventListeners(card, id) {
+  setEventListeners() {
     const popupDelete = document.querySelector('.popup__form_card-delete');
     super.setEventListeners();
     popupDelete.addEventListener('submit', (evt) => {
       evt.preventDefault();
-      this.handleRemoveCard(card, id);
+      this._handleRemoveCard(this._card, this._id);
       this.close();
     })
   }

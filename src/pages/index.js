@@ -17,16 +17,41 @@ import {
 const api = new Api();
 const popupWithImage = new PopupWithImage('.popup_open-image');
 const userInfo = new UserInfo({ userName: userName, userProfession: userProfession, avatar: userAvatar });
-const popupDeleteCard = new PopupWithDeleteCard('.popup_card-delete');
+const popupDeleteCard = new PopupWithDeleteCard('.popup_card-delete', handleRemoveCard);
 const cardFormValidator = new FormValidator(config, popupCardForm);
 const profileFormValidator = new FormValidator(config, popupProfileForm);
 const popupChangeAvatar = new PopupWithForm('.popup_change-avatar', submitAvatar);
 const avatarFormValidation = new FormValidator(config, buttonSubmitAvatar);
 
 export function openPopupDeleteCard(id, card) {
-  popupDeleteCard.open();
-  popupDeleteCard.setEventListeners(id, card);
+  popupDeleteCard.open(id, card);
 }
+popupDeleteCard.setEventListeners();
+
+function handleRemoveCard(id, card) {
+  api.deleteCard(id)
+  card.remove(id);
+  card = null;
+}
+
+// setEventListeners(card, id) {
+//   const popupDelete = document.querySelector('.popup__form_card-delete');
+//   super.setEventListeners();
+//   popupDelete.addEventListener('submit', (evt) => {
+//     evt.preventDefault();
+//     this.handleRemoveCard(card, id);
+//     this.close();
+//   })
+// }
+
+
+
+
+
+
+
+
+
 
 //открыть попап инфо
 const openPopupInfo = function () {
