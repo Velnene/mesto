@@ -1,7 +1,7 @@
 import { Api } from "./Api";
 const api = new Api();
 export class Card {
-  constructor({ name, link, like, id, card, userCard }, selector, openPopupImage, openPopupDeleteCard, handleLikeButton) {
+  constructor({ name, link, like, id, card, userCard, myCardId }, selector, openPopupImage, openPopupDeleteCard, handleLikeButton) {
     this._name = name;
     this._link = link;
     this._like = like;
@@ -12,6 +12,7 @@ export class Card {
     this._openPopupDeleteCard = openPopupDeleteCard;
     this._userCard = userCard;
     this._handleLikeButton = handleLikeButton;
+    this._myCardId = myCardId
     // this._addLike = addLike;
   }
 
@@ -24,8 +25,8 @@ export class Card {
     return cardElement;
   }
 
-_addLike() {
-  return this._card.likes.some(likeActive => likeActive._id === '32b5b8bf8c92542a79688185');
+  _addLike() {
+  return this._card.likes.some(likeActive => likeActive._id === this._myCardId);
 }
 
   _toggleLikeButton() {
@@ -52,7 +53,7 @@ _addLike() {
   }
 
   _addIconDelete() {
-    if (this._userCard === "32b5b8bf8c92542a79688185") {
+    if (this._userCard === this._myCardId) {
       this._newCard.querySelector('.element__remove').addEventListener('click', () => { this._openPopupDeleteCard(this._newCard, this._id) });
     }
     else {
@@ -68,6 +69,7 @@ _addLike() {
 
   createCard() {
     this._newCard = this._getTemplate();
+    this._toggleLikeButton();
     this._buttonDeletecard = this._newCard.querySelector('.element__remove');
     this._elementImage = this._newCard.querySelector('.element__image');
     this._newCard.querySelector('.element__name').textContent = this._name;
@@ -76,7 +78,6 @@ _addLike() {
     this._elementImage.alt = this._name;
     this._addIconDelete()
     this._setEventListeners();
-    this._toggleLikeButton();
     return this._newCard;
   }
 }

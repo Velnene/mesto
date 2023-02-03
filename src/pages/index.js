@@ -22,7 +22,7 @@ const cardFormValidator = new FormValidator(config, popupCardForm);
 const profileFormValidator = new FormValidator(config, popupProfileForm);
 const popupChangeAvatar = new PopupWithForm('.popup_change-avatar', submitAvatar);
 const avatarFormValidation = new FormValidator(config, buttonSubmitAvatar);
-
+let myCardId;
 export function openPopupDeleteCard(id, card) {
   popupDeleteCard.open(id, card);
 }
@@ -96,7 +96,7 @@ const section = new Section({
   items: [],
   renderer: (cardData) => {
     const newCard = new Card({
-      name: cardData.name, link: cardData.link, like: cardData.likes.length, id: cardData._id, card: cardData, userCard: cardData.owner._id,
+      name: cardData.name, link: cardData.link, like: cardData.likes.length, id: cardData._id, card: cardData, userCard: cardData.owner._id, myCardId: myCardId
     }, '#element-template', openPopupImage, openPopupDeleteCard, handleLikeButton).createCard();
     return newCard;
   },
@@ -125,12 +125,13 @@ popupWithCard.setEventListeners();
 
 Promise.all([api.initialCards(), api.getUserInfo({ userName: userName, userProfession: userProfession, avatar: avatar })])
   .then((res) => {
-    res[0].forEach(element => {
-      section.addItem(element);
-    })
     userName.textContent = res[1].name;
     userProfession.textContent = res[1].about;
     avatar.src = res[1].avatar;
+    myCardId = res[1]._id;
+    res[0].forEach(element => {
+      section.addItem(element);
+    })
   })
   .catch(err => alert(err))
 
@@ -154,7 +155,7 @@ const popupInfo = new PopupWithForm('.popup_info', ({ name, profession }) => {
 // }
 
 function handleLikeButton() {
-  if (this._card.likes.some(likeActive => likeActive._id === '32b5b8bf8c92542a79688185')) {
+  if (this._card.likes.some(likeActive => likeActive._id === myCardId)) {
     api.deleteLike(this._id).then((cardData) => {
       this._newCard.querySelector('.element__like').classList.remove('element__like_active');
       this._updatelikesCounter(cardData.likes);
