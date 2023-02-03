@@ -6,7 +6,7 @@ export class Api {
   }
 
   getUserInfo({ userName, userProfession, avatar }) {
-    fetch(this._userUrl, {
+    return fetch(this._userUrl, {
       headers: {
         authorization: this._token
       }
@@ -18,11 +18,6 @@ export class Api {
         else {
           return Promise.reject(`Ошибка: ${res.status}`);
         }
-      })
-      .then((me) => {
-        userName.textContent = me.name;
-        userProfession.textContent = me.about;
-        avatar.src = me.avatar;
       })
   }
 
@@ -161,7 +156,7 @@ export class Api {
       })
   }
 
-  
+
 
 }
 

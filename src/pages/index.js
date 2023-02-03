@@ -34,22 +34,6 @@ function handleRemoveCard(id, card) {
   card = null;
 }
 
-// setEventListeners(card, id) {
-//   const popupDelete = document.querySelector('.popup__form_card-delete');
-//   super.setEventListeners();
-//   popupDelete.addEventListener('submit', (evt) => {
-//     evt.preventDefault();
-//     this.handleRemoveCard(card, id);
-//     this.close();
-//   })
-// }
-
-
-
-
-
-
-
 
 
 
@@ -108,7 +92,7 @@ const section = new Section({
   items: [],
   renderer: (cardData) => {
     const newCard = new Card({
-      name: cardData.name, link: cardData.link, like: cardData.likes.length, id: cardData._id, card: cardData, myCard: cardData.owner._id, 
+      name: cardData.name, link: cardData.link, like: cardData.likes.length, id: cardData._id, card: cardData, myCard: cardData.owner._id,
     }, '#element-template', openPopupImage, openPopupDeleteCard, handleLikeButton).createCard();
     return newCard;
   },
@@ -132,15 +116,17 @@ const popupWithCard = new PopupWithForm('.popup_card', ({ name, link }) => {
 });
 popupWithCard.setEventListeners();
 // profile get User info
-api.getUserInfo({ userName: userName, userProfession: userProfession, avatar: avatar });
 
 
-Promise.all([api.initialCards(), api.setUserInfo])
+
+Promise.all([api.initialCards(), api.getUserInfo({ userName: userName, userProfession: userProfession, avatar: avatar })])
   .then((res) => {
     res[0].forEach(element => {
       section.addItem(element);
     })
-
+    userName.textContent = res[1].name;
+    userProfession.textContent = res[1].about;
+    avatar.src = res[1].avatar;
   })
   .catch(err => alert(err))
 
@@ -190,4 +176,4 @@ function handleLikeButton() {
 popupInfo.setEventListeners();
 
 
- 
+

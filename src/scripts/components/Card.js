@@ -52,7 +52,6 @@ _addLike() {
   }
 
   _addIconDelete() {
-    console.log(this._myCard + '1')
     if (this._myCard === "32b5b8bf8c92542a79688185") {
       this._newCard.querySelector('.element__remove').addEventListener('click', () => { this._openPopupDeleteCard(this._newCard, this._id) });
     }
