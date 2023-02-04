@@ -8,10 +8,10 @@ import './index.css';
 import { Api } from '../scripts/components/Api';
 import { PopupWithDeleteCard } from '../scripts/components/PopupWithDeleteCard';
 import {
-  avatar, popupProfileInfo, popupProfileForm, buttonOpenEditProfilePopup,
-  cardsContainer, popupCard, popupCardForm, buttonOpenNewCardPopup,
+  avatar, popupProfileForm, buttonOpenEditProfilePopup,
+  cardsContainer, popupCardForm, buttonOpenNewCardPopup,
   nameInput, jobInput, userName, userProfession, userAvatar, popupCardButonSubmit,
-  popupAvatar, avatarForm, buttonSubmitAvatar, avatarInput, avatarChange
+  avatarForm, buttonSubmitAvatar, avatarChange
 } from '../scripts/const';
 
 //переменные
@@ -25,16 +25,16 @@ const popupChangeAvatar = new PopupWithForm('.popup_change-avatar', submitAvatar
 const avatarFormValidation = new FormValidator(config, buttonSubmitAvatar);
 let myCardId;
 
-export function openPopupDeleteCard(id, card) {
-  popupDeleteCard.open(id, card);
+export function openPopupDeleteCard(card, id) {
+  popupDeleteCard.open(card, id);
 }
 popupDeleteCard.setEventListeners();
 
-function handleRemoveCard(id, card) {
+function handleRemoveCard(card, id) {
   api.deleteCard(id)
     .then((() => {
-      card.remove(id);
-      card = null;
+      section.deleteItem(card);
+      popupDeleteCard.close();
     }))
     .catch(err => alert(err))
 }
@@ -57,7 +57,7 @@ function openPopupAvatar() {
 
 avatarChange.addEventListener('click', openPopupAvatar)
 function submitAvatar() {
-  popupAvatar.querySelector('.popup__button').textContent = 'Сохранить...';
+  popupChangeAvatar.changeTextButton('Сохранить...');
   api.changeUserAvatar(popupChangeAvatar.getInputValues())
     .then((dataUser) => {
       userInfo.setUserInfo({ name: dataUser.name, profession: dataUser.about, avatar: dataUser.avatar });
@@ -65,7 +65,7 @@ function submitAvatar() {
     })
     .catch(err => alert(err))
     .finally(() => {
-      popupAvatar.querySelector('.popup__button').textContent = 'Сохранить';
+      popupChangeAvatar.changeTextButton('Сохранить');
     })
 }
 
@@ -106,14 +106,14 @@ const popupWithCard = new PopupWithForm('.popup_card', ({ name, link }) => {
     name: name,
     link: link,
   }
-  popupCard.querySelector('.popup__button').textContent = 'Создать...'
+  popupWithCard.changeTextButton('Создать...');
   api.setNewCard(card).then(res => {
     section.addNewItem(res);
     popupWithCard.close();
   })
     .catch(err => alert(err))
     .finally(() => {
-      popupCard.querySelector('.popup__button').textContent = 'Создать'
+      popupWithCard.changeTextButton('Создать');
     });
 });
 popupWithCard.setEventListeners();
@@ -132,14 +132,14 @@ Promise.all([api.initialCards(), api.getUserInfo({ userName: userName, userProfe
   .catch(err => alert(err))
 
 const popupInfo = new PopupWithForm('.popup_info', ({ name, profession }) => {
-  popupProfileInfo.querySelector('.popup__button').textContent = 'Сохранить...';
+  popupInfo.changeTextButton('Сохранить...');
   api.setUserInfo({ name, profession }).then((dataUser) => {
     userInfo.setUserInfo({ name: dataUser.name, profession: dataUser.about, avatar: dataUser.avatar })
     popupInfo.close();
   })
     .catch(err => alert(err))
     .finally(() => {
-      popupProfileInfo.querySelector('.popup__button').textContent = 'Сохранить';
+      popupInfo.changeTextButton('Сохранить');
     })
 });
 

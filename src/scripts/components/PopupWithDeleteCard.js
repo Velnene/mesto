@@ -7,7 +7,7 @@ export class PopupWithDeleteCard extends Popup {
     this._handleRemoveCard = handleRemoveCard;
   }
 
-  open(id, card) {
+  open(card, id) {
     super.open();
     this._card = card;
     this._id = id;
@@ -19,7 +19,6 @@ export class PopupWithDeleteCard extends Popup {
     popupDelete.addEventListener('submit', (evt) => {
       evt.preventDefault();
       this._handleRemoveCard(this._card, this._id);
-      this.close();
     })
   }
 }
