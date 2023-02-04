@@ -144,9 +144,9 @@ const popupInfo = new PopupWithForm('.popup_info', ({ name, profession }) => {
 });
 
 function handleLikeButton() {
-  if (this._addLike()) {
+  if (this._checkLike()) {
     api.deleteLike(this._id).then((cardData) => {
-      this._newCard.querySelector('.element__like').classList.remove('element__like_active');
+      this.removeLike();
       this._updatelikesCounter(cardData.likes);
       this._card = cardData;
     }).catch((err) => {
@@ -154,7 +154,7 @@ function handleLikeButton() {
     });
   } else {
     api.addLike(this._id).then((cardData) => {
-      this._newCard.querySelector('.element__like').classList.add('element__like_active');
+      this.addLike();
       this._updatelikesCounter(cardData.likes);
       this._card = cardData;
     }).catch((err) => {

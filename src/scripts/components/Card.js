@@ -24,16 +24,23 @@ export class Card {
     return cardElement;
   }
 
-  _addLike() {
-  return this._card.likes.some(likeActive => likeActive._id === this._myCardId);
-}
+  _checkLike() {
+    return this._card.likes.some(likeActive => likeActive._id === this._myCardId);
+  }
+
+  addLike() {
+    this._newCard.querySelector('.element__like').classList.add('element__like_active');
+  }
+  removeLike() {
+    this._newCard.querySelector('.element__like').classList.remove('element__like_active');
+  }
 
   _toggleLikeButton() {
-    if (this._addLike()) {
-      this._newCard.querySelector('.element__like').classList.add('element__like_active');
+    if (this._checkLike()) {
+      this.addLike();
     }
     else {
-      this._newCard.querySelector('.element__like').classList.remove('element__like_active');
+      this.removeLike()
     }
   }
 

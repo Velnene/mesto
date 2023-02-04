@@ -43,7 +43,6 @@ export class FormValidator {
     inputElement.classList.remove(this._config.popupInputInactive);
   }
  
-
   _enableButton() {
     this._submitButton.removeAttribute('disable');
     this._submitButton.classList.remove(this._config.buttonInactive);
