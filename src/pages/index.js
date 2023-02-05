@@ -89,15 +89,36 @@ export function openPopupImage(name, link) {
   popupWithImage.open(name, link);
 }
 popupWithImage.setEventListeners();
-
+const cards = {}
 // создание карточки и иницивлизация карточек
 const section = new Section({
   items: [],
-  renderer: (cardData) => {
-    newCard = new Card(cardData, myCardId, '#element-template', openPopupImage, openPopupDeleteCard, handleLikeButton);
+  renderer: (data) => {
+    newCard = new Card(data, myCardId, '#element-template', openPopupImage, openPopupDeleteCard,
+      handleLikeButton);
+    cards[data._id] = newCard;
     return newCard.createCard();
   },
 }, cardsContainer);
+
+function handleLikeButton(cardId, checkike) {
+  if (checkike) {
+    api.deleteLike(cardId).then((cardData) => {
+      cards[cardId].like(cardData);
+      cards[cardId].setCard(cardData)
+    }).catch((err) => {
+      console.log(err);
+    });
+  } else {
+    api.addLike(cardId).then((cardData) => {
+      cards[cardId].like(cardData);
+      cards[cardId].setCard(cardData)
+    }).catch((err) => {
+      console.log(err);
+    });
+  }
+}
+
 
 // Добавление новой карточки
 const popupWithCard = new PopupWithForm('.popup_card', ({ name, link }) => {
@@ -142,23 +163,5 @@ const popupInfo = new PopupWithForm('.popup_info', ({ name, profession }) => {
     })
 });
 
-function handleLikeButton() {
-  if (this._checkLike()) {
-    api.deleteLike(this._id).then((cardData) => {
-      this.removeLike();
-      this._updatelikesCounter(cardData.likes);
-      this._card = cardData;
-    }).catch((err) => {
-      console.log(err);
-    });
-  } else {
-    api.addLike(this._id).then((cardData) => {
-      this.addLike();
-      this._updatelikesCounter(cardData.likes);
-      this._card = cardData;
-    }).catch((err) => {
-      console.log(err);
-    });
-  }
-}
+
 popupInfo.setEventListeners();
