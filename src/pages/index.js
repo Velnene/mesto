@@ -24,6 +24,7 @@ const profileFormValidator = new FormValidator(config, popupProfileForm);
 const popupChangeAvatar = new PopupWithForm('.popup_change-avatar', submitAvatar);
 const avatarFormValidation = new FormValidator(config, buttonSubmitAvatar);
 let myCardId;
+let newCard;
 
 export function openPopupDeleteCard(card, id) {
   popupDeleteCard.open(card, id);
@@ -33,7 +34,7 @@ popupDeleteCard.setEventListeners();
 function handleRemoveCard(card, id) {
   api.deleteCard(id)
     .then((() => {
-      section.deleteItem(card);
+      newCard.removeCard();
       popupDeleteCard.close();
     }))
     .catch(err => alert(err))
@@ -93,10 +94,8 @@ popupWithImage.setEventListeners();
 const section = new Section({
   items: [],
   renderer: (cardData) => {
-    const newCard = new Card({
-      name: cardData.name, link: cardData.link, like: cardData.likes.length, id: cardData._id, card: cardData, userCard: cardData.owner._id, myCardId: myCardId
-    }, '#element-template', openPopupImage, openPopupDeleteCard, handleLikeButton).createCard();
-    return newCard;
+    newCard = new Card(cardData, myCardId, '#element-template', openPopupImage, openPopupDeleteCard, handleLikeButton);
+    return newCard.createCard();
   },
 }, cardsContainer);
 

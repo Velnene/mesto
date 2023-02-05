@@ -1,16 +1,16 @@
 import { Api } from "./Api";
 const api = new Api();
 export class Card {
-  constructor({ name, link, like, id, card, userCard, myCardId }, selector, openPopupImage, openPopupDeleteCard, handleLikeButton) {
-    this._name = name;
-    this._link = link;
-    this._like = like;
-    this._id = id;
-    this._card = card;
+  constructor(data, myCardId, selector, openPopupImage, openPopupDeleteCard, handleLikeButton) {
+    this._name = data.name;
+    this._link = data.link;
+    this._like = data.likes.length;
+    this._id = data._id;
+    this._card = data;
     this._selector = selector;
     this._openPopupImage = openPopupImage;
     this._openPopupDeleteCard = openPopupDeleteCard;
-    this._userCard = userCard;
+    this._userCard = data.owner._id;
     this._handleLikeButton = handleLikeButton;
     this._myCardId = myCardId
   }
@@ -48,8 +48,7 @@ export class Card {
     this._newCard.querySelector('.element__like-count').textContent = data.length;
   }
 
-  handleRemoveCard() {
-    api.deleteCard(this._userCard)
+  removeCard() {
     this._newCard.remove(this._userCard);
     this._newCard = null;
   }
