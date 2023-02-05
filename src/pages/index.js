@@ -25,6 +25,7 @@ const popupChangeAvatar = new PopupWithForm('.popup_change-avatar', submitAvatar
 const avatarFormValidation = new FormValidator(config, buttonSubmitAvatar);
 let myCardId;
 let newCard;
+const cards = {}
 
 export function openPopupDeleteCard(card, id) {
   popupDeleteCard.open(card, id);
@@ -89,7 +90,6 @@ export function openPopupImage(name, link) {
   popupWithImage.open(name, link);
 }
 popupWithImage.setEventListeners();
-const cards = {}
 // создание карточки и иницивлизация карточек
 const section = new Section({
   items: [],
@@ -118,7 +118,6 @@ function handleLikeButton(cardId, checkike) {
     });
   }
 }
-
 
 // Добавление новой карточки
 const popupWithCard = new PopupWithForm('.popup_card', ({ name, link }) => {
@@ -162,6 +161,5 @@ const popupInfo = new PopupWithForm('.popup_info', ({ name, profession }) => {
       popupInfo.changeTextButton('Сохранить');
     })
 });
-
 
 popupInfo.setEventListeners();

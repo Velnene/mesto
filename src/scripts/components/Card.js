@@ -86,7 +86,6 @@ export class Card {
     this._newCard.querySelector('.element__image').addEventListener('click', () => { this._openPopupImage(this._name, this._link) });
   }
 
-
   setCard(cardData) {
     this._card = cardData;
   }
