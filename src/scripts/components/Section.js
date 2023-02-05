@@ -10,11 +10,6 @@ export default class Section {
       this.addItem(element);
     });
   }
-  
-  deleteItem(card) {
-    card.remove();
-    card = null;
-  }
 
   addItem(item) {
     const card = this._renderer(item);
