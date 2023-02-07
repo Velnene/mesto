@@ -24,18 +24,17 @@ const profileFormValidator = new FormValidator(config, popupProfileForm);
 const popupChangeAvatar = new PopupWithForm('.popup_change-avatar', submitAvatar);
 const avatarFormValidation = new FormValidator(config, buttonSubmitAvatar);
 let myCardId;
-let newCard;
-const cards = {}
 
-export function openPopupDeleteCard(card, id) {
+function openPopupDeleteCard(card, id) {
   popupDeleteCard.open(card, id);
 }
-popupDeleteCard.setEventListeners();
 
 function handleRemoveCard(card, id) {
   api.deleteCard(id)
     .then((() => {
-      newCard.removeCard();
+      // card.removeCard();
+      card.remove();
+      card = null;
       popupDeleteCard.close();
     }))
     .catch(err => alert(err))
@@ -94,30 +93,27 @@ popupWithImage.setEventListeners();
 const section = new Section({
   items: [],
   renderer: (data) => {
-    newCard = new Card(data, myCardId, '#element-template', openPopupImage, openPopupDeleteCard,
-      handleLikeButton);
-    cards[data._id] = newCard;
+    const newCard = new Card(data, myCardId, '#element-template', openPopupImage, openPopupDeleteCard,
+      function handleLikeButton(card, checLike) {
+        if (checLike) {
+          api.deleteLike(card._id).then((cardData) => {
+            newCard.like(cardData);
+            newCard.setCard(cardData)
+          }).catch((err) => {
+            console.log(err);
+          });
+        } else {
+          api.addLike(card._id).then((cardData) => {
+            newCard.like(cardData);
+            newCard.setCard(cardData)
+          }).catch((err) => {
+            console.log(err);
+          });
+        }
+      });
     return newCard.createCard();
   },
 }, cardsContainer);
-
-function handleLikeButton(cardId, checkike) {
-  if (checkike) {
-    api.deleteLike(cardId).then((cardData) => {
-      cards[cardId].like(cardData);
-      cards[cardId].setCard(cardData)
-    }).catch((err) => {
-      console.log(err);
-    });
-  } else {
-    api.addLike(cardId).then((cardData) => {
-      cards[cardId].like(cardData);
-      cards[cardId].setCard(cardData)
-    }).catch((err) => {
-      console.log(err);
-    });
-  }
-}
 
 // Добавление новой карточки
 const popupWithCard = new PopupWithForm('.popup_card', ({ name, link }) => {
@@ -162,4 +158,5 @@ const popupInfo = new PopupWithForm('.popup_info', ({ name, profession }) => {
     })
 });
 
+popupDeleteCard.setEventListeners();
 popupInfo.setEventListeners();

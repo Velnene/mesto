@@ -6,7 +6,7 @@ export class Card {
     this._link = data.link;
     this._like = data.likes.length;
     this._id = data._id;
-    this._card = data;
+    this._data = data;
     this._selector = selector;
     this._openPopupImage = openPopupImage;
     this._openPopupDeleteCard = openPopupDeleteCard;
@@ -25,7 +25,7 @@ export class Card {
   }
 
   _checkLike() {
-    return this._card.likes.some(likeActive => likeActive._id === this._myCardId);
+    return this._data.likes.some(likeActive => likeActive._id === this._myCardId);
   }
 
   _addLike() {
@@ -82,12 +82,12 @@ export class Card {
 
   _setEventListeners() {
     this._elementLike = this._newCard.querySelector('.element__like');
-    this._elementLike.addEventListener('click', () => this._handleLikeButton(this._id, this._checkLike()));
+    this._elementLike.addEventListener('click', () => this._handleLikeButton(this._data, this._checkLike()));
     this._newCard.querySelector('.element__image').addEventListener('click', () => { this._openPopupImage(this._name, this._link) });
   }
 
   setCard(cardData) {
-    this._card = cardData;
+    this._data = cardData;
   }
   createCard() {
     this._newCard = this._getTemplate();
