@@ -62,7 +62,7 @@ export class Card {
     this._updatelikesCounter(data.likes);
   }
 
-  removeCard() {
+  _removeCard() {
     this._newCard.remove(this._userCard);
     this._newCard = null;
   }
@@ -73,7 +73,7 @@ export class Card {
 
   _addIconDelete() {
     if (this._userCard === this._myCardId) {
-      this._newCard.querySelector('.element__remove').addEventListener('click', () => { this._openPopupDeleteCard(this._newCard, this._id) });
+      this._newCard.querySelector('.element__remove').addEventListener('click', () => { this._openPopupDeleteCard(this._removeCard.bind(this), this._id) });
     }
     else {
       this._buttonDeletecard.remove();
